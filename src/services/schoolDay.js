@@ -2,7 +2,11 @@ import { supabase } from "../lib/supabase";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 
 export async function getEffectiveSchoolDay() {
-  const { data, error } = await supabase.rpc("get_effective_school_day");
+  const { data, error } = await supabase.rpc(
+    "get_effective_school_day",
+    {},
+    { get: true },
+  );
 
   if (error) {
     logServiceError("getEffectiveSchoolDay", error);

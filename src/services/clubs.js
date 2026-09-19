@@ -4,11 +4,11 @@ import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 import { isSafeExternalHref } from "../utils/urls";
 
-async function withResolvedLogo(club) {
+function withResolvedLogo(club) {
   if (!club) return club;
   return {
     ...club,
-    logo_url: await resolveClubLogoUrl(club.logo_url),
+    logo_url: resolveClubLogoUrl(club.logo_url),
     banner_url: toSameOriginSupabaseUrl(club.banner_url) ?? null,
   };
 }
@@ -96,20 +96,10 @@ export async function getApprovedClubs() {
       short_description,
       description,
       logo_url,
-      banner_url,
       contact_email,
       instagram_handle,
       meeting_location,
-      meeting_schedule,
-      meeting_frequency,
-      meeting_days,
-      meeting_time_details,
-      club_record_status,
-      school_year,
-      annual_status,
-      activated_at,
-      created_at,
-      updated_at
+      meeting_schedule
     `,
     )
     .order("name", { ascending: true });
@@ -121,7 +111,7 @@ export async function getApprovedClubs() {
 
   return (data ?? []).map((row) => ({
     ...row,
-    status: row.club_record_status || "APPROVED",
+    status: "APPROVED",
   }));
 }
 
@@ -147,7 +137,11 @@ export async function getClubAnnualState(clubId) {
 }
 
 export async function getCurrentClubSchoolYear() {
-  const { data, error } = await supabase.rpc("get_current_club_school_year");
+  const { data, error } = await supabase.rpc(
+    "get_current_club_school_year",
+    {},
+    { get: true },
+  );
   if (error) {
     logServiceError("getCurrentClubSchoolYear", error);
     return "2026-2027";
@@ -167,7 +161,7 @@ export async function getClubBySlug(slug) {
     throw new Error(getErrorMessage(error, "Could not load this club."));
   }
 
-  return await withResolvedLogo(data);
+  return withResolvedLogo(data);
 }
 
 export async function getClubById(clubId) {
@@ -182,7 +176,7 @@ export async function getClubById(clubId) {
     throw new Error(getErrorMessage(error, "Could not load this club."));
   }
 
-  return await withResolvedLogo(data);
+  return withResolvedLogo(data);
 }
 
 /**
@@ -266,7 +260,7 @@ export async function updateOwnedClubProfile(clubId, values) {
     );
   }
 
-  return await withResolvedLogo(data);
+  return withResolvedLogo(data);
 }
 
 /**

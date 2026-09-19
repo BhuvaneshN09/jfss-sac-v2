@@ -16,7 +16,7 @@ import {
 } from "../services/clubRequests";
 import { createSignedClubDocumentUrl } from "../services/clubDocuments";
 import { getClubById } from "../services/clubs";
-import { resolveClubLogoUrl } from "../utils/clubMedia";
+import { resolveSignedClubLogoUrl } from "../services/clubLogos";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 import { formatDate } from "../utils/format";
 import { getErrorMessage } from "../utils/errors";
@@ -60,7 +60,7 @@ export function AdminClubRequestDetailPage({ embedded = false }) {
       }
       setLogoUrl(
         data.logo_storage_path
-          ? await resolveClubLogoUrl(data.logo_storage_path)
+          ? await resolveSignedClubLogoUrl(data.logo_storage_path)
           : null,
       );
       setRequest(data);

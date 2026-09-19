@@ -2,6 +2,11 @@ import {
   isAllowedUpstreamGatewayPath,
   stripGatewaySearchParams,
 } from "./_paths.js";
+import {
+  getPublicCdnCacheControl,
+  hasUserAccessToken,
+  withPublicCdnCache,
+} from "./_cachePublic.js";
 
 export const config = { runtime: "edge" };
 
@@ -139,7 +144,15 @@ export async function proxySupabaseRequest(request, destUrl) {
   }
 
   const upstream = await fetch(dest.toString(), init);
-  return sanitizeUpstreamResponse(upstream);
+  const sanitized = sanitizeUpstreamResponse(upstream);
+  const cacheControl = getPublicCdnCacheControl({
+    method: request.method,
+    pathname: dest.pathname,
+    status: sanitized.status,
+    hasUserToken: hasUserAccessToken(request),
+    hasRange: Boolean(request.headers.get("range")),
+  });
+  return withPublicCdnCache(sanitized, cacheControl);
 }
 
 export default function helperNotFound() {

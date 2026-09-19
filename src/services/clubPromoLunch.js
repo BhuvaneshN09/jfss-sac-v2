@@ -97,6 +97,7 @@ export async function getApprovedClubPromoLunchConfirmation(clubId) {
   const { data, error } = await supabase.rpc(
     "get_public_club_promo_lunch_confirmation",
     { p_club_id: clubId },
+    { get: true },
   );
 
   if (error) {
@@ -109,6 +110,8 @@ export async function getApprovedClubPromoLunchConfirmation(clubId) {
 export async function getConfirmedClubPromoLunchClubIds() {
   const { data, error } = await supabase.rpc(
     "get_public_confirmed_promo_lunch_club_ids",
+    {},
+    { get: true },
   );
 
   if (error) {

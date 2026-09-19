@@ -6,6 +6,8 @@ import {
 } from "../config/clubApplications";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 import { assertFileMatchesDeclaredType } from "../utils/fileMagic";
+import { resolveClubLogoUrl } from "../utils/clubMedia";
+import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 
 function extensionForMime(mime) {
   if (mime === "image/png") return "png";
@@ -148,4 +150,22 @@ export async function deleteClubLogo(path) {
   if (error) {
     logServiceError("deleteClubLogo", error);
   }
+}
+
+/** Signed URL for unpublished logos (admin review). Do not use on public pages. */
+export async function resolveSignedClubLogoUrl(logoUrl) {
+  if (!logoUrl || typeof logoUrl !== "string") return null;
+
+  const trimmed = logoUrl.trim();
+  if (!trimmed) return null;
+
+  if (/^https:\/\//i.test(trimmed)) {
+    return resolveClubLogoUrl(trimmed);
+  }
+
+  const { data, error } = await supabase.storage
+    .from(CLUB_LOGOS_BUCKET)
+    .createSignedUrl(trimmed, 60 * 60);
+
+  return error ? null : toSameOriginSupabaseUrl(data?.signedUrl) || null;
 }

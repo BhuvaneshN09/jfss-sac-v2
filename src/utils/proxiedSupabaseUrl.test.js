@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { toSameOriginSupabaseUrl } from "./proxiedSupabaseUrl.js";
+import {
+  toAuthenticatedStorageObjectUrl,
+  toSameOriginSupabaseUrl,
+} from "./proxiedSupabaseUrl.js";
 
 const ORIGIN = "https://www.johnfrasersac.com";
 const PROJECT_ORIGIN = "https://nvpxsuafdcrobnackhnd.supabase.co";
@@ -59,5 +62,26 @@ describe("toSameOriginSupabaseUrl", () => {
     );
     expect(toSameOriginSupabaseUrl("not a url", ORIGIN)).toBe("not a url");
     expect(toSameOriginSupabaseUrl(42, ORIGIN)).toBe(42);
+  });
+});
+
+describe("toAuthenticatedStorageObjectUrl", () => {
+  it("builds a bland same-origin authenticated object path", () => {
+    expect(
+      toAuthenticatedStorageObjectUrl(
+        "club-logos",
+        "club-profile-logos/user/club/logo.png",
+      ),
+    ).toBe(
+      "/api/x/f/v1/object/authenticated/club-logos/club-profile-logos/user/club/logo.png",
+    );
+  });
+
+  it("encodes path segments and rejects empty paths", () => {
+    expect(toAuthenticatedStorageObjectUrl("club-logos", "a b/c.png")).toBe(
+      "/api/x/f/v1/object/authenticated/club-logos/a%20b/c.png",
+    );
+    expect(toAuthenticatedStorageObjectUrl("club-logos", "")).toBeNull();
+    expect(toAuthenticatedStorageObjectUrl("", "a.png")).toBeNull();
   });
 });

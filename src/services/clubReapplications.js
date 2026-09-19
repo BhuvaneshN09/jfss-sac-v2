@@ -286,7 +286,11 @@ export async function getApprovedReapplicationForClub(clubId) {
 }
 
 async function getCurrentClubSchoolYearSafe() {
-  const { data, error } = await supabase.rpc("get_current_club_school_year");
+  const { data, error } = await supabase.rpc(
+    "get_current_club_school_year",
+    {},
+    { get: true },
+  );
   if (error) return "2026-2027";
   return data || "2026-2027";
 }

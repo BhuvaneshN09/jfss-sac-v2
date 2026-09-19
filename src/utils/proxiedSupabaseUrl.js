@@ -76,3 +76,29 @@ export function toSameOriginSupabaseUrl(value, origin) {
   proxied.hash = parsed.hash;
   return proxied.toString();
 }
+
+function encodeStorageObjectPath(objectPath) {
+  return String(objectPath || "")
+    .trim()
+    .replace(/^\/+/, "")
+    .split("/")
+    .filter(Boolean)
+    .map((segment) => encodeURIComponent(segment))
+    .join("/");
+}
+
+/**
+ * Stable same-origin URL for a private-bucket object that RLS already allows
+ * anonymous readers to download. Used by <img> tags so every visitor shares
+ * one cacheable URL instead of a unique signed URL.
+ *
+ * Returns a same-origin path (not an absolute URL) so localhost preview and
+ * production both pass href safety checks.
+ */
+export function toAuthenticatedStorageObjectUrl(bucket, objectPath) {
+  const encoded = encodeStorageObjectPath(objectPath);
+  if (!bucket || !encoded || encoded.includes("..")) return null;
+  return toBrowserProxyPath(
+    `/storage/v1/object/authenticated/${bucket}/${encoded}`,
+  );
+}
