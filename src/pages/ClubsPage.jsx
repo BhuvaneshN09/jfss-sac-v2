@@ -23,6 +23,10 @@ function readClubExploreInitialCount() {
   );
 }
 
+function formatCurrentlyActiveClubsNoun(count) {
+  return count === 1 ? "club currently active" : "clubs currently active";
+}
+
 export function ClubsPage() {
   const location = useLocation();
   const [clubs, setClubs] = useState([]);
@@ -120,27 +124,40 @@ export function ClubsPage() {
     }));
   }, [filterKey, initialCount]);
 
+  const activeClubCount = clubs.length;
+
   return (
     <div className="page">
-      <div className="toolbar clubs-toolbar">
-        <button
-          type="button"
-          className={`promo-lunch-filter${promoLunchOnly ? " promo-lunch-filter--active" : ""}`}
-          aria-pressed={promoLunchOnly}
-          disabled={loading}
-          onClick={() => setPromoLunchOnly((active) => !active)}
-        >
-          {promoLunchOnly
-            ? "Clubs confirmed for Club Promo Lunch"
-            : "See clubs confirmed for Club Promo Lunch"}
-        </button>
-        <TextInput
-          id="club-search"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          placeholder="Search by club name"
-          disabled={loading}
-        />
+      <div className="clubs-explore-controls">
+        <div className="toolbar clubs-toolbar">
+          <button
+            type="button"
+            className={`promo-lunch-filter${promoLunchOnly ? " promo-lunch-filter--active" : ""}`}
+            aria-pressed={promoLunchOnly}
+            disabled={loading}
+            onClick={() => setPromoLunchOnly((active) => !active)}
+          >
+            {promoLunchOnly
+              ? "Clubs confirmed for Club Promo Lunch"
+              : "See clubs confirmed for Club Promo Lunch"}
+          </button>
+          <TextInput
+            id="club-search"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Search by club name"
+            disabled={loading}
+          />
+        </div>
+
+        {!loading && !error ? (
+          <p className="clubs-active-count" role="status" aria-live="polite">
+            <span className="clubs-active-count__number">{activeClubCount}</span>
+            <span className="clubs-active-count__label">
+              {formatCurrentlyActiveClubsNoun(activeClubCount)}
+            </span>
+          </p>
+        ) : null}
       </div>
 
       {notice ? (

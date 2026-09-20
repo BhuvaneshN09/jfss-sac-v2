@@ -4326,6 +4326,29 @@ button.nav-link {
   border: 1px solid var(--border);
 }
 
+.clubs-explore-controls {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.clubs-active-count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.clubs-active-count__number {
+  color: var(--text-strong);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
 .clubs-toolbar {
   display: flex;
   flex-direction: row;
