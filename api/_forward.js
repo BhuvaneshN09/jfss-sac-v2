@@ -44,6 +44,13 @@ function getServerPublishableKey() {
 function shouldDropResponseHeader(name, value) {
   const header = name.toLowerCase();
   if (
+    header === "content-encoding" ||
+    header === "content-length" ||
+    header === "transfer-encoding"
+  ) {
+    return true;
+  }
+  if (
     header.startsWith("sb-") ||
     header.startsWith("cf-") ||
     header.startsWith("x-supabase") ||
@@ -104,6 +111,8 @@ export function buildUpstreamHeaders(request) {
       headers.set("x-supabase-api-version", "2024-01-01");
     }
   }
+
+  headers.set("accept-encoding", "identity");
 
   return headers;
 }

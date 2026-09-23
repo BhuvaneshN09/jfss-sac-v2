@@ -65,12 +65,19 @@ export function ClubsPage() {
     setError("");
 
     try {
-      const [data, confirmedClubIds] = await Promise.all([
+      const [clubsResult, promoResult] = await Promise.allSettled([
         getApprovedClubs(),
         getConfirmedClubPromoLunchClubIds(),
       ]);
-      setClubs(data);
-      setPromoLunchClubIds(confirmedClubIds);
+      if (clubsResult.status === "rejected") {
+        throw clubsResult.reason;
+      }
+      setClubs(clubsResult.value);
+      setPromoLunchClubIds(
+        promoResult.status === "fulfilled"
+          ? promoResult.value
+          : new Set(),
+      );
     } catch (loadError) {
       setError(getErrorMessage(loadError, "Could not load clubs."));
     } finally {
