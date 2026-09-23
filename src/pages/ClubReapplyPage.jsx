@@ -28,6 +28,7 @@ import {
 import { getVisibleMeetingSchedule } from "../utils/clubSchedule";
 import { getErrorMessage } from "../utils/errors";
 import { assertFileMatchesDeclaredType } from "../utils/fileMagic";
+import { prepareImageFileForUpload } from "../utils/imageUpload";
 import { validateOptionalHttpsUrl, validateOwnerNames } from "../utils/validation";
 
 const INITIAL = {
@@ -328,14 +329,15 @@ export function ClubReapplyPage() {
     try {
       if (logoFile) {
         setUploadProgress("Uploading logo…");
+        const preparedLogo = await prepareImageFileForUpload(logoFile);
         const ext =
-          logoFile.type === "image/png"
+          preparedLogo.type === "image/png"
             ? "png"
-            : logoFile.type === "image/webp"
+            : preparedLogo.type === "image/webp"
               ? "webp"
               : "jpg";
         logoPath = `reapplication-logos/${user.id}/${requestId}/${crypto.randomUUID()}.${ext}`;
-        await uploadFile(CLUB_LOGOS_BUCKET, logoPath, logoFile);
+        await uploadFile(CLUB_LOGOS_BUCKET, logoPath, preparedLogo);
         uploadedFiles.push({
           bucket: CLUB_LOGOS_BUCKET,
           path: logoPath,
@@ -344,23 +346,24 @@ export function ClubReapplyPage() {
 
       if (signedFormFile) {
         setUploadProgress("Uploading teacher supervisor form…");
+        const preparedForm = await prepareImageFileForUpload(signedFormFile);
         const ext =
-          signedFormFile.type === "image/png"
+          preparedForm.type === "image/png"
             ? "png"
-            : signedFormFile.type === "image/webp"
+            : preparedForm.type === "image/webp"
               ? "webp"
               : "jpg";
         const path = `reapplications/${user.id}/${requestId}/${crypto.randomUUID()}.${ext}`;
-        await uploadFile(CLUB_APPLICATION_DOCUMENTS_BUCKET, path, signedFormFile);
+        await uploadFile(CLUB_APPLICATION_DOCUMENTS_BUCKET, path, preparedForm);
         uploadedFiles.push({
           bucket: CLUB_APPLICATION_DOCUMENTS_BUCKET,
           path,
         });
         uploadedAttachments.push({
           storage_path: path,
-          original_filename: signedFormFile.name,
-          mime_type: signedFormFile.type,
-          size_bytes: signedFormFile.size,
+          original_filename: preparedForm.name,
+          mime_type: preparedForm.type,
+          size_bytes: preparedForm.size,
         });
       }
 

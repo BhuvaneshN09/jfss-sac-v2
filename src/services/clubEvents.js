@@ -1,6 +1,7 @@
 import { supabase } from "../lib/supabase";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 import { assertFileMatchesDeclaredType } from "../utils/fileMagic";
+import { prepareImageFileForUpload } from "../utils/imageUpload";
 import { toAuthenticatedStorageObjectUrl, toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 
 export const CLUB_EVENT_PHOTOS_BUCKET = "club-event-photos";
@@ -114,12 +115,13 @@ export async function uploadClubEventPhoto({ userId, requestId, file }) {
 
   await assertFileMatchesDeclaredType(file, CLUB_EVENT_PHOTO_ALLOWED_TYPES);
 
-  const path = buildClubEventPhotoPath({ userId, requestId, file });
+  const uploadFile = await prepareImageFileForUpload(file);
+  const path = buildClubEventPhotoPath({ userId, requestId, file: uploadFile });
   const { error } = await supabase.storage
     .from(CLUB_EVENT_PHOTOS_BUCKET)
-    .upload(path, file, {
+    .upload(path, uploadFile, {
       cacheControl: "3600",
-      contentType: file.type,
+      contentType: uploadFile.type,
       upsert: false,
     });
 
@@ -171,12 +173,17 @@ export async function uploadClubEventSignature({ userId, requestId, file }) {
 
   await assertFileMatchesDeclaredType(file, CLUB_EVENT_SIGNATURE_ALLOWED_TYPES);
 
-  const path = buildClubEventSignaturePath({ userId, requestId, file });
+  const uploadFile = await prepareImageFileForUpload(file);
+  const path = buildClubEventSignaturePath({
+    userId,
+    requestId,
+    file: uploadFile,
+  });
   const { error } = await supabase.storage
     .from(CLUB_EVENT_SIGNATURES_BUCKET)
-    .upload(path, file, {
+    .upload(path, uploadFile, {
       cacheControl: "3600",
-      contentType: file.type,
+      contentType: uploadFile.type,
       upsert: false,
     });
 

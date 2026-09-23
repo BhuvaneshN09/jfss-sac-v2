@@ -52,6 +52,19 @@ describe("getErrorMessage", () => {
     );
   });
 
+  it("maps Vercel 413 upload failures to a file-size message", () => {
+    expect(getErrorMessage("HTTP 413 error")).toMatch(/too large to upload/i);
+    expect(getErrorMessage({ message: "Payload Too Large", status: 413 })).toMatch(
+      /smaller JPEG/i,
+    );
+    expect(
+      getErrorMessage({
+        message: "FUNCTION_PAYLOAD_TOO_LARGE",
+        statusCode: 413,
+      }),
+    ).toMatch(/too large to upload/i);
+  });
+
   it("hides Vercel NOT_FOUND page text", () => {
     expect(
       getErrorMessage({ message: "The page could not be found NOT_FOUND iad1::abc", status: 404 }),

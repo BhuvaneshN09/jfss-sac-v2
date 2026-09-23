@@ -6,6 +6,7 @@ import {
 } from "../config/clubApplications";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 import { assertFileMatchesDeclaredType } from "../utils/fileMagic";
+import { prepareImageFileForUpload } from "../utils/imageUpload";
 import { resolveClubLogoUrl } from "../utils/clubMedia";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 
@@ -53,14 +54,15 @@ export async function uploadClubLogo({ userId, clubId, file }) {
 
   await assertFileMatchesDeclaredType(file, REAPP_LOGO_ALLOWED_TYPES);
 
-  const path = buildClubProfileLogoPath({ userId, clubId, file });
+  const uploadFile = await prepareImageFileForUpload(file);
+  const path = buildClubProfileLogoPath({ userId, clubId, file: uploadFile });
 
   const { error } = await supabase.storage
     .from(CLUB_LOGOS_BUCKET)
-    .upload(path, file, {
+    .upload(path, uploadFile, {
       cacheControl: "3600",
       upsert: false,
-      contentType: file.type,
+      contentType: uploadFile.type,
     });
 
   if (error) {
@@ -121,13 +123,18 @@ export async function uploadNewClubLogo({ userId, requestId, file }) {
 
   await assertFileMatchesDeclaredType(file, REAPP_LOGO_ALLOWED_TYPES);
 
-  const path = buildNewClubApplicationLogoPath({ userId, requestId, file });
+  const uploadFile = await prepareImageFileForUpload(file);
+  const path = buildNewClubApplicationLogoPath({
+    userId,
+    requestId,
+    file: uploadFile,
+  });
   const { error } = await supabase.storage
     .from(CLUB_LOGOS_BUCKET)
-    .upload(path, file, {
+    .upload(path, uploadFile, {
       cacheControl: "3600",
       upsert: false,
-      contentType: file.type,
+      contentType: uploadFile.type,
     });
 
   if (error) {

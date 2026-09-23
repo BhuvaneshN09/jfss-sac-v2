@@ -6,6 +6,7 @@ import {
 } from "../config/clubApplications";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 import { assertFileMatchesDeclaredType } from "../utils/fileMagic";
+import { prepareImageFileForUpload } from "../utils/imageUpload";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 
 function extensionForMime(mime) {
@@ -58,19 +59,20 @@ export async function uploadClubApplicationDocument({
 
   await assertFileMatchesDeclaredType(file, SIGNED_FORM_ALLOWED_TYPES);
 
+  const uploadFile = await prepareImageFileForUpload(file);
   const path = buildApplicationDocumentPath({
     folder,
     userId,
     submissionId,
-    file,
+    file: uploadFile,
   });
 
   const { error } = await supabase.storage
     .from(CLUB_APPLICATION_DOCUMENTS_BUCKET)
-    .upload(path, file, {
+    .upload(path, uploadFile, {
       cacheControl: "3600",
       upsert: false,
-      contentType: file.type,
+      contentType: uploadFile.type,
     });
 
   if (error) {

@@ -33,6 +33,15 @@ export function getErrorMessage(error, fallback = "Something went wrong.") {
   const lower = message.toLowerCase();
 
   if (
+    status === 413 ||
+    lower.includes("http 413") ||
+    lower.includes("payload too large") ||
+    lower.includes("function_payload_too_large")
+  ) {
+    return "The file was too large to upload. Try a smaller JPEG photo and submit again.";
+  }
+
+  if (
     status === 502 ||
     status === 503 ||
     status === 504 ||

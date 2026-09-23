@@ -6,6 +6,7 @@ import {
 } from "../utils/clubFunding";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 import { assertFileMatchesDeclaredType } from "../utils/fileMagic";
+import { prepareImageFileForUpload } from "../utils/imageUpload";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 
 export const CLUB_FUNDING_SIGNATURES_BUCKET = "club-funding-signatures";
@@ -74,13 +75,19 @@ export async function uploadFundingSignature({
 
   await assertFileMatchesDeclaredType(file, FUNDING_SIGNATURE_ALLOWED_TYPES);
 
-  const path = buildFundingSignaturePath({ userId, requestId, kind, file });
+  const uploadFile = await prepareImageFileForUpload(file);
+  const path = buildFundingSignaturePath({
+    userId,
+    requestId,
+    kind,
+    file: uploadFile,
+  });
   const { error } = await supabase.storage
     .from(CLUB_FUNDING_SIGNATURES_BUCKET)
-    .upload(path, file, {
+    .upload(path, uploadFile, {
       cacheControl: "3600",
       upsert: false,
-      contentType: file.type,
+      contentType: uploadFile.type,
     });
 
   if (error) {

@@ -6,6 +6,7 @@ import {
 } from "../config/clubApplications";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 import { assertFileMatchesDeclaredType } from "../utils/fileMagic";
+import { prepareImageFileForUpload } from "../utils/imageUpload";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 
 const SUPERVISOR_REQ_FIELDS = `
@@ -252,22 +253,23 @@ export async function uploadSupervisorDocument({ userId, requestId, file }) {
 
   await assertFileMatchesDeclaredType(file, REAPP_ATTACHMENT_ALLOWED_TYPES);
 
+  const uploadFile = await prepareImageFileForUpload(file);
   const ext =
-    file.type === "application/pdf"
+    uploadFile.type === "application/pdf"
       ? "pdf"
-      : file.type === "image/png"
+      : uploadFile.type === "image/png"
         ? "png"
-        : file.type === "image/webp"
+        : uploadFile.type === "image/webp"
           ? "webp"
           : "jpg";
   const path = `supervisor-requests/${userId}/${requestId}/${crypto.randomUUID()}.${ext}`;
 
   const { error } = await supabase.storage
     .from(CLUB_SUPERVISOR_DOCUMENTS_BUCKET)
-    .upload(path, file, {
+    .upload(path, uploadFile, {
       cacheControl: "3600",
       upsert: false,
-      contentType: file.type,
+      contentType: uploadFile.type,
     });
 
   if (error) {
@@ -279,9 +281,9 @@ export async function uploadSupervisorDocument({ userId, requestId, file }) {
 
   return {
     storage_path: path,
-    original_filename: file.name,
-    mime_type: file.type,
-    size_bytes: file.size,
+    original_filename: uploadFile.name,
+    mime_type: uploadFile.type,
+    size_bytes: uploadFile.size,
   };
 }
 
