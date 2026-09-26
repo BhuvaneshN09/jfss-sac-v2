@@ -1321,9 +1321,8 @@ summary:focus-visible {
   gap: 1rem;
   padding: 1.1rem;
   height: 100%;
-  max-height: 16.5rem;
+  min-height: 16.5rem;/* Changed max h so it can expand */
   min-width: 0;
-  overflow: hidden;
 }
 
 .club-card__body {
@@ -1331,11 +1330,12 @@ summary:focus-visible {
   flex-direction: column;
   min-width: 0;
   min-height: 0;
-  overflow: hidden;
+  justify-content: space-between;/* Spaced out title and other shi */
 }
 
 .club-card__body .text-link {
   margin-top: auto;
+  padding-top: 0.5rem;
   flex-shrink: 0;
 }
 
