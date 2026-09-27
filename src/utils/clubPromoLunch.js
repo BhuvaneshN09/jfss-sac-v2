@@ -1,4 +1,4 @@
-export const PROMO_LUNCH_DEADLINE_TEXT = "October 1, 2026";
+export const PROMO_LUNCH_DEADLINE_TEXT = "October 2, 2026";
 
 export const PROMO_LUNCH_DAYS = [
   { value: "OCTOBER_6", label: "October 6th" },
@@ -26,7 +26,10 @@ export function validateClubPromoLunchForm(values) {
   if (!PROMO_LUNCH_DAYS.some((day) => day.value === boothDays)) {
     errors.boothDays = "Choose which days your club will run a booth.";
   }
-  if (values.approvalEmailReceived !== true && values.approvalEmailReceived !== false) {
+  if (
+    values.approvalEmailReceived !== true &&
+    values.approvalEmailReceived !== false
+  ) {
     errors.approvalEmailReceived = "Choose Yes or No.";
   }
   if (representatives.length < 2 || representatives.length > 5000) {
