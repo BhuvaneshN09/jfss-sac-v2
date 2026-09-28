@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import { parsePromoLunchConfirmation } from "../utils/clubPromoLunch";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 
 const PROMO_LUNCH_FIELDS = `
@@ -104,7 +105,7 @@ export async function getApprovedClubPromoLunchConfirmation(clubId) {
     logServiceError("getApprovedClubPromoLunchConfirmation", error);
     return null;
   }
-  return data ? { status: "APPROVED" } : null;
+  return parsePromoLunchConfirmation(data);
 }
 
 export async function getConfirmedClubPromoLunchClubIds() {

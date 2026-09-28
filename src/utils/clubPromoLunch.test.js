@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
+  formatPromoLunchConfirmation,
   getPromoLunchDaysLabel,
+  parsePromoLunchConfirmation,
   validateClubPromoLunchForm,
 } from "./clubPromoLunch";
 
@@ -50,5 +52,40 @@ describe("getPromoLunchDaysLabel", () => {
     expect(getPromoLunchDaysLabel("OCTOBER_6")).toBe("October 6th");
     expect(getPromoLunchDaysLabel("OCTOBER_7")).toBe("October 7th");
     expect(getPromoLunchDaysLabel("BOTH")).toBe("Both");
+  });
+});
+
+describe("formatPromoLunchConfirmation", () => {
+  it("includes the confirmed booth days", () => {
+    expect(formatPromoLunchConfirmation("OCTOBER_6")).toBe(
+      "Confirmed for Club Promo Lunch on October 6th",
+    );
+    expect(formatPromoLunchConfirmation("OCTOBER_7")).toBe(
+      "Confirmed for Club Promo Lunch on October 7th",
+    );
+    expect(formatPromoLunchConfirmation("BOTH")).toBe(
+      "Confirmed for Club Promo Lunch on October 6th and October 7th",
+    );
+  });
+
+  it("keeps the confirmation when the days are unknown", () => {
+    expect(formatPromoLunchConfirmation(null)).toBe(
+      "Confirmed for Club Promo Lunch",
+    );
+  });
+});
+
+describe("parsePromoLunchConfirmation", () => {
+  it("reads booth days from the public confirmation", () => {
+    expect(parsePromoLunchConfirmation("OCTOBER_6")).toEqual({
+      status: "APPROVED",
+      boothDays: "OCTOBER_6",
+    });
+    expect(parsePromoLunchConfirmation(true)).toEqual({
+      status: "APPROVED",
+      boothDays: null,
+    });
+    expect(parsePromoLunchConfirmation(false)).toBeNull();
+    expect(parsePromoLunchConfirmation(null)).toBeNull();
   });
 });

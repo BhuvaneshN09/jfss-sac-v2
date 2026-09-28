@@ -11,6 +11,7 @@ import { getClubBySlug } from "../services/clubs";
 import { getApprovedClubPromoLunchConfirmation } from "../services/clubPromoLunch";
 import { getMyMembershipForClub } from "../services/memberships";
 import { isClubOwner } from "../utils/clubPermissions";
+import { getPromoLunchConfirmationDaysLabel } from "../utils/clubPromoLunch";
 import { getVisibleMeetingSchedule } from "../utils/clubSchedule";
 import { getErrorMessage } from "../utils/errors";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
@@ -20,7 +21,7 @@ export function ClubDetailPage() {
   const { slug } = useParams();
   const { user, isAuthenticated, isAdmin } = useAuth();
   const [club, setClub] = useState(null);
-  const [promoLunchConfirmed, setPromoLunchConfirmed] = useState(false);
+  const [promoLunchConfirmation, setPromoLunchConfirmation] = useState(null);
   const [membership, setMembership] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -32,7 +33,7 @@ export function ClubDetailPage() {
       setLoading(true);
       setError("");
       setMembership(null);
-      setPromoLunchConfirmed(false);
+      setPromoLunchConfirmation(null);
 
       try {
         const nextClub = await getClubBySlug(slug);
@@ -47,10 +48,10 @@ export function ClubDetailPage() {
 
         setClub(nextClub);
 
-        const promoLunchConfirmation =
+        const nextPromoLunchConfirmation =
           await getApprovedClubPromoLunchConfirmation(nextClub.id);
         if (!active) return;
-        setPromoLunchConfirmed(Boolean(promoLunchConfirmation));
+        setPromoLunchConfirmation(nextPromoLunchConfirmation);
 
         if (isAuthenticated && user?.id) {
           try {
@@ -115,6 +116,9 @@ export function ClubDetailPage() {
   const logoUrl = safeExternalHref(toSameOriginSupabaseUrl(club.logo_url));
   const memberApplyHref = safeExternalHref(club.member_application_url);
   const execApplyHref = safeExternalHref(club.exec_application_url);
+  const promoLunchDays = getPromoLunchConfirmationDaysLabel(
+    promoLunchConfirmation?.boothDays,
+  );
 
   return (
     <div className="page">
@@ -145,11 +149,12 @@ export function ClubDetailPage() {
               {membership ? <ClubRoleBadge role={membership.role} /> : null}
             </div>
             </div>
-            {promoLunchConfirmed || memberApplyHref || execApplyHref ? (
+            {promoLunchConfirmation || memberApplyHref || execApplyHref ? (
               <div className="club-hero__actions">
-                {promoLunchConfirmed ? (
+                {promoLunchConfirmation ? (
                   <p className="club-promo-confirmation">
-                    Confirmed for Club Promo Lunch
+                    <span>Confirmed for Club Promo Lunch</span>
+                    {promoLunchDays ? <span>on {promoLunchDays}</span> : null}
                   </p>
                 ) : null}
                 {memberApplyHref || execApplyHref ? (

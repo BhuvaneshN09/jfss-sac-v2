@@ -14,8 +14,36 @@ const PROMO_LUNCH_DAY_LABELS = {
   OCTOBER_2: "October 7th",
 };
 
+const PROMO_LUNCH_CONFIRMATION_DAY_LABELS = {
+  OCTOBER_6: "October 6th",
+  OCTOBER_7: "October 7th",
+  BOTH: "October 6th and October 7th",
+  OCTOBER_1: "October 6th",
+  OCTOBER_2: "October 7th",
+};
+
 export function getPromoLunchDaysLabel(value) {
   return PROMO_LUNCH_DAY_LABELS[value] || value || "—";
+}
+
+export function getPromoLunchConfirmationDaysLabel(boothDays) {
+  return PROMO_LUNCH_CONFIRMATION_DAY_LABELS[boothDays] || "";
+}
+
+export function formatPromoLunchConfirmation(boothDays) {
+  const days = getPromoLunchConfirmationDaysLabel(boothDays);
+  if (!days) return "Confirmed for Club Promo Lunch";
+  return `Confirmed for Club Promo Lunch on ${days}`;
+}
+
+export function parsePromoLunchConfirmation(data) {
+  if (data === true) {
+    return { status: "APPROVED", boothDays: null };
+  }
+
+  const boothDays = typeof data === "string" ? data.trim().toUpperCase() : "";
+  if (!PROMO_LUNCH_DAY_LABELS[boothDays]) return null;
+  return { status: "APPROVED", boothDays };
 }
 
 export function validateClubPromoLunchForm(values) {
