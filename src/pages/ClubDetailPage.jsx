@@ -11,7 +11,7 @@ import { getClubBySlug } from "../services/clubs";
 import { getApprovedClubPromoLunchConfirmation } from "../services/clubPromoLunch";
 import { getMyMembershipForClub } from "../services/memberships";
 import { isClubOwner } from "../utils/clubPermissions";
-import { getPromoLunchConfirmationDaysLabel } from "../utils/clubPromoLunch";
+import { getPromoLunchConfirmationDays } from "../utils/clubPromoLunch";
 import { getVisibleMeetingSchedule } from "../utils/clubSchedule";
 import { getErrorMessage } from "../utils/errors";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
@@ -116,7 +116,7 @@ export function ClubDetailPage() {
   const logoUrl = safeExternalHref(toSameOriginSupabaseUrl(club.logo_url));
   const memberApplyHref = safeExternalHref(club.member_application_url);
   const execApplyHref = safeExternalHref(club.exec_application_url);
-  const promoLunchDays = getPromoLunchConfirmationDaysLabel(
+  const promoLunchDays = getPromoLunchConfirmationDays(
     promoLunchConfirmation?.boothDays,
   );
 
@@ -149,13 +149,24 @@ export function ClubDetailPage() {
               {membership ? <ClubRoleBadge role={membership.role} /> : null}
             </div>
             </div>
-            {promoLunchConfirmation || memberApplyHref || execApplyHref ? (
+            {promoLunchDays.length > 0 || memberApplyHref || execApplyHref ? (
               <div className="club-hero__actions">
-                {promoLunchConfirmation ? (
-                  <p className="club-promo-confirmation">
-                    <span>Confirmed for Club Promo Lunch</span>
-                    {promoLunchDays ? <span>on {promoLunchDays}</span> : null}
-                  </p>
+                {promoLunchDays.length > 0 ? (
+                  <div
+                    className="club-promo-days"
+                    role="list"
+                    aria-label="Club Promo Lunch"
+                  >
+                    {promoLunchDays.map((day) => (
+                      <span
+                        key={day}
+                        className="club-promo-days__tab"
+                        role="listitem"
+                      >
+                        {day}
+                      </span>
+                    ))}
+                  </div>
                 ) : null}
                 {memberApplyHref || execApplyHref ? (
                   <div className="club-hero__applications">
