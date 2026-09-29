@@ -224,6 +224,17 @@ export function ClubEventForm({
         <ul>
           <li>Club fundraisers may only be scheduled for Fridays.</li>
         </ul>
+        <p>SAC materials available to request:</p>
+        <ul>
+          <li>Freezer</li>
+          <li>Speaker</li>
+          <li>Art supplies</li>
+          <li>Utensils</li>
+          <li>Insulated drink container</li>
+          <li>Jag for events</li>
+          <li>Tap machine (payment)</li>
+          <li>Cash Box/float</li>
+        </ul>
         <p>
           If you have any questions, please contact our club liaisons through
           email or Instagram:
