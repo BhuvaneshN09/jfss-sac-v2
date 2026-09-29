@@ -152,20 +152,19 @@ export function ClubDetailPage() {
             {promoLunchDays.length > 0 || memberApplyHref || execApplyHref ? (
               <div className="club-hero__actions">
                 {promoLunchDays.length > 0 ? (
-                  <div
-                    className="club-promo-days"
-                    role="list"
-                    aria-label="Club Promo Lunch"
-                  >
-                    {promoLunchDays.map((day) => (
-                      <span
-                        key={day}
-                        className="club-promo-days__tab"
-                        role="listitem"
-                      >
-                        {day}
-                      </span>
-                    ))}
+                  <div className="club-promo-confirmation">
+                    <p>Confirmed for Club Promo Lunch</p>
+                    <div className="club-promo-days" role="list">
+                      {promoLunchDays.map((day) => (
+                        <span
+                          key={day}
+                          className="club-promo-days__tab"
+                          role="listitem"
+                        >
+                          {day}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 ) : null}
                 {memberApplyHref || execApplyHref ? (
