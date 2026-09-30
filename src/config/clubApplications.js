@@ -1,7 +1,7 @@
 export const CLUB_APPLICATION_SCHOOL_YEAR = "2026-2027";
 
 /** Update this single constant when the official deadline is confirmed. */
-export const CLUB_APPLICATION_DEADLINE_TEXT = "September 30, 2026";
+export const CLUB_APPLICATION_DEADLINE_TEXT = "January 10, 2027";
 
 export const TEACHER_SUPERVISOR_FORM_URL =
   "https://docs.google.com/document/d/1CY38S_PvswNe8xEwzLI_c0O7d9_RBMke0Pwo4xmx2dM/edit?tab=t.887naxm1onnx";
