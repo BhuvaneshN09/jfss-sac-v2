@@ -111,7 +111,13 @@ export function CurrentEventsPage() {
                 title: event.event_name,
                 description: event.event_description,
                 photo: event.photo_url,
-                clubName: event.clubs?.name,
+                clubNames: [
+                  event.clubs?.name,
+                  ...(event.event_name?.trim().toLowerCase() ===
+                  "diwali after dark"
+                    ? ["Sikh Students Association"]
+                    : []),
+                ].filter(Boolean),
               }}
             />
           ))}
