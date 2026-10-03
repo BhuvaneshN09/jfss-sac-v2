@@ -1,5 +1,11 @@
 export const PROMO_LUNCH_DEADLINE_TEXT = "October 2, 2026";
 
+/** New sign-ups are closed. Existing rows can still be reviewed and posted. */
+export const PROMO_LUNCH_SUBMISSIONS_OPEN = false;
+
+export const PROMO_LUNCH_CLOSED_MESSAGE =
+  "Club Promo Lunch sign-ups are closed. Sign-ups already submitted can still be reviewed and posted.";
+
 export const PROMO_LUNCH_DAYS = [
   { value: "OCTOBER_6", label: "October 6th" },
   { value: "OCTOBER_7", label: "October 7th" },

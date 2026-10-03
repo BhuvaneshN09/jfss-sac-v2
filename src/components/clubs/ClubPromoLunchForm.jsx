@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import {
   getPromoLunchDaysLabel,
+  PROMO_LUNCH_CLOSED_MESSAGE,
   PROMO_LUNCH_DAYS,
   PROMO_LUNCH_DEADLINE_TEXT,
+  PROMO_LUNCH_SUBMISSIONS_OPEN,
   validateClubPromoLunchForm,
 } from "../../utils/clubPromoLunch";
 import {
@@ -34,7 +36,9 @@ export function ClubPromoLunchForm({
 
   async function handleSubmit(event) {
     event.preventDefault();
-    if (submitting || !canSubmit || !club) return;
+    if (!PROMO_LUNCH_SUBMISSIONS_OPEN || submitting || !canSubmit || !club) {
+      return;
+    }
 
     const validation = validateClubPromoLunchForm({
       boothDays,
@@ -75,6 +79,18 @@ export function ClubPromoLunchForm({
         {blockedMessage ||
           "Only active club owners can submit this Club Promo Lunch sign-up."}
       </p>
+    );
+  }
+
+  if (!PROMO_LUNCH_SUBMISSIONS_OPEN) {
+    return (
+      <div className="alert alert--warning" role="status">
+        <strong>Club Promo Lunch sign-ups are closed</strong>
+        <p>{PROMO_LUNCH_CLOSED_MESSAGE}</p>
+        <Link className="text-link" to="/my-requests/promo-lunch">
+          View my sign-ups
+        </Link>
+      </div>
     );
   }
 

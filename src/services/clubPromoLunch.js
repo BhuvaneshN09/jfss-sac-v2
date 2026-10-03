@@ -1,5 +1,9 @@
 import { supabase } from "../lib/supabase";
-import { parsePromoLunchConfirmation } from "../utils/clubPromoLunch";
+import {
+  PROMO_LUNCH_CLOSED_MESSAGE,
+  PROMO_LUNCH_SUBMISSIONS_OPEN,
+  parsePromoLunchConfirmation,
+} from "../utils/clubPromoLunch";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 
 const PROMO_LUNCH_FIELDS = `
@@ -25,6 +29,10 @@ const PROMO_LUNCH_FIELDS = `
 `;
 
 export async function submitClubPromoLunchRequest(payload) {
+  if (!PROMO_LUNCH_SUBMISSIONS_OPEN) {
+    throw new Error(PROMO_LUNCH_CLOSED_MESSAGE);
+  }
+
   const { data, error } = await supabase.rpc(
     "submit_club_promo_lunch_request",
     {

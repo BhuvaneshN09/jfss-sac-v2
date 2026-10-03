@@ -71,6 +71,12 @@ describe("getErrorMessage", () => {
     ).toMatch(/reach the API/i);
   });
 
+  it("keeps the closed Club Promo Lunch message", () => {
+    expect(
+      getErrorMessage("Club Promo Lunch sign-ups are closed"),
+    ).toMatch(/already submitted can still be reviewed and posted/i);
+  });
+
   it("maps mutation rate-limit errors to a wait message", () => {
     expect(
       getErrorMessage("Too many submissions. Please wait and try again."),

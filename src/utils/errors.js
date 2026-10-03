@@ -132,6 +132,10 @@ export function getErrorMessage(error, fallback = "Something went wrong.") {
     }
   }
 
+  if (lower.includes("club promo lunch sign-ups are closed")) {
+    return "Club Promo Lunch sign-ups are closed. Sign-ups already submitted can still be reviewed and posted.";
+  }
+
   if (lower.includes("too many submissions")) {
     return "Too many submissions. Please wait and try again.";
   }

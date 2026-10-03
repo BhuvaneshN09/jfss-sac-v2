@@ -7,7 +7,10 @@ import { useAuth } from "../context/AuthContext";
 import { getMyClubPromoLunchRequests } from "../services/clubPromoLunch";
 import { getErrorMessage } from "../utils/errors";
 import { formatDate } from "../utils/format";
-import { getPromoLunchDaysLabel } from "../utils/clubPromoLunch";
+import {
+  PROMO_LUNCH_SUBMISSIONS_OPEN,
+  getPromoLunchDaysLabel,
+} from "../utils/clubPromoLunch";
 
 export function MyPromoLunchRequestsPage() {
   const { user } = useAuth();
@@ -49,8 +52,12 @@ export function MyPromoLunchRequestsPage() {
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       {!error && requests.length === 0 ? (
         <EmptyState
-          title="No sign-ups yet"
-          description="Submit a Club Promo Lunch sign-up from Manage Club."
+          title={PROMO_LUNCH_SUBMISSIONS_OPEN ? "No sign-ups yet" : "No sign-ups"}
+          description={
+            PROMO_LUNCH_SUBMISSIONS_OPEN
+              ? "Submit a Club Promo Lunch sign-up from Manage Club."
+              : "Club Promo Lunch sign-ups are closed."
+          }
         />
       ) : (
         requests.map((request) => (

@@ -47,6 +47,7 @@ import {
 import { getErrorMessage } from "../utils/errors";
 import { formatDate } from "../utils/format";
 import { archiveSuccessNotice } from "../utils/clubOrigin";
+import { PROMO_LUNCH_SUBMISSIONS_OPEN } from "../utils/clubPromoLunch";
 
 function annualStatusLabel(status, overdue) {
   if (status === "PENDING_SUPERVISOR" && overdue) return "Supervisor Overdue";
@@ -472,8 +473,9 @@ export function ClubManagePage() {
           <section className="panel">
             <h2>Club Promo Lunch sign-up</h2>
             <p className="muted">
-              Submit your club&apos;s booth information for review and
-              confirmation.
+              {PROMO_LUNCH_SUBMISSIONS_OPEN
+                ? "Submit your club's booth information for review and confirmation."
+                : "New sign-ups are closed. Submitted sign-ups can still be reviewed and posted."}
             </p>
             <ClubPromoLunchForm
               club={club}
