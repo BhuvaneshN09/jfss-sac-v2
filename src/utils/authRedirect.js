@@ -8,7 +8,7 @@ export function normalizeAuthReturnPath(path) {
     return null;
   }
 
-  let decoded = value;
+  let decoded;
   try {
     decoded = decodeURIComponent(value);
   } catch {

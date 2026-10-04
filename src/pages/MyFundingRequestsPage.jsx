@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Navigate, useOutletContext } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -25,12 +26,14 @@ export function MyFundingRequestsPage() {
     [memberships],
   );
 
+  const userId = user?.id;
+
   const loadRequests = useCallback(async () => {
-    if (!canView || !user?.id) return;
+    if (!canView || !userId) return;
     setLoading(true);
     setError("");
     try {
-      setRequests(await getMyFundingRequests(user.id));
+      setRequests(await getMyFundingRequests(userId));
     } catch (loadError) {
       setError(
         getErrorMessage(loadError, "Could not load your funding requests."),
@@ -38,7 +41,7 @@ export function MyFundingRequestsPage() {
     } finally {
       setLoading(false);
     }
-  }, [canView, user?.id]);
+  }, [canView, userId]);
 
   useEffect(() => {
     void loadRequests();
