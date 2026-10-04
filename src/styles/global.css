@@ -1366,6 +1366,7 @@ summary:focus-visible {
   flex-shrink: 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1385,6 +1386,7 @@ summary:focus-visible {
   flex-shrink: 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2735,6 +2737,7 @@ button.nav-link {
   min-width: 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2764,6 +2767,7 @@ button.nav-link {
   color: var(--text);
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;

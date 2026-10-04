@@ -1,8 +1,8 @@
+import { AnimatedLayeredWaves } from "../home/AnimatedLayeredWaves";
 import {
-  AnimatedLayeredWaves,
   CLUBS_WAVE_LAYERS,
   HOME_WAVE_LAYERS,
-} from "../home/AnimatedLayeredWaves";
+} from "../home/animatedLayeredWavesConfig";
 
 /**
  * Shared full-bleed site banner with animated wave background.

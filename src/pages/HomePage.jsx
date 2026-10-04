@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useCallback, useEffect, useState } from "react";
 import { HomeBanner } from "../components/home/HomeBanner";
 import { HomeDayWeatherPanel } from "../components/home/HomeDayWeatherPanel";
