@@ -156,6 +156,17 @@ export function AppShell() {
                   </NavLink>
                 </li>
               ))}
+              <li>
+                <a
+                  href="https://jfsselections-mue3.vercel.app/"
+                  className="nav-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Grade Reps
+                </a>
+              </li>
 
               {isAuthenticated ? (
                 <li>
