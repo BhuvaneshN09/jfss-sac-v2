@@ -42,13 +42,8 @@ function getNavRoleLabel({ isSacAdmin }) {
 }
 
 export function AppShell() {
-  const {
-    user,
-    profile,
-    isAuthenticated,
-    canAccessExecDashboard,
-    isSacAdmin,
-  } = useAuth();
+  const { user, profile, isAuthenticated, canAccessExecDashboard, isSacAdmin } =
+    useAuth();
   const location = useLocation();
   const { pathname } = location;
   const [menuOpen, setMenuOpen] = useState(false);
@@ -115,7 +110,9 @@ export function AppShell() {
 
   return (
     <div className="app-shell">
-      <header className={`site-header${navHidden ? " site-header--hidden" : ""}`}>
+      <header
+        className={`site-header${navHidden ? " site-header--hidden" : ""}`}
+      >
         <div className="site-header__inner">
           <div className="site-header__slot site-header__slot--left">
             <NavLink
@@ -158,7 +155,7 @@ export function AppShell() {
               ))}
               <li>
                 <a
-                  href="https://jfsselections-mue3.vercel.app/"
+                  href="https://jfsselections-fawn.vercel.app/"
                   className="nav-link"
                   target="_blank"
                   rel="noopener noreferrer"
