@@ -1166,6 +1166,18 @@ summary:focus-visible {
   will-change: transform, opacity;
 }
 
+@media (max-width: 720px) {
+  .home-upcoming {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+
+  .home-upcoming::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @keyframes home-upcoming-drop {
   from {
     opacity: 0.35;
@@ -3876,26 +3888,60 @@ button.nav-link {
 
 @media (max-width: 720px) {
   .home-upcoming__inner {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 0.75rem 0;
+    width: max-content;
+    margin-inline: 0;
+    padding-inline: 1rem;
+    align-items: center;
+    flex-direction: row;
+    gap: 0.8rem;
+    min-width: 100%;
+    padding-block: 0.48rem;
   }
 
   .home-upcoming__event,
   .home-upcoming__details {
-    width: 100%;
     box-sizing: border-box;
   }
 
   .home-upcoming__details {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.65rem;
+    align-items: center;
+    flex-direction: row;
+    gap: 0.75rem;
   }
 
   .home-upcoming__clubs {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .home-upcoming__title-line {
+    font-size: 0.82rem;
+  }
+
+  .home-upcoming__countdown {
+    font-size: 0.78rem;
+  }
+
+  .home-upcoming__club {
+    gap: 0.32rem;
+    font-size: 0.68rem;
+  }
+
+  .home-upcoming__club-logo {
+    width: 1.45rem;
+    height: 1.45rem;
+    border-radius: 0.3rem;
+  }
+
+  .home-upcoming__date {
+    gap: 0.32rem;
+    font-size: 0.7rem;
+  }
+
+  .home-upcoming__button {
+    min-height: 1.75rem;
+    padding: 0 0.7rem;
+    font-size: 0.7rem;
   }
 
   .home-info-strip {
