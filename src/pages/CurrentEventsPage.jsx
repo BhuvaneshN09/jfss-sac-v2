@@ -112,6 +112,7 @@ export function CurrentEventsPage() {
                 description: event.event_description,
                 photo: event.photo_url,
                 clubName: event.clubs?.name,
+                clubNames: event.club_names,
               }}
             />
           ))}

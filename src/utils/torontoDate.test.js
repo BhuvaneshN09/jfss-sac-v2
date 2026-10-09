@@ -22,6 +22,13 @@ describe("torontoDate", () => {
     expect(diffCalendarDaysYmd("2026-08-04", "2026-08-08")).toBe(4);
   });
 
+  it("drops remaining days by one when Toronto today advances", () => {
+    const eventDate = "2026-10-21";
+
+    expect(diffCalendarDaysYmd("2026-10-08", eventDate)).toBe(13);
+    expect(diffCalendarDaysYmd("2026-10-09", eventDate)).toBe(12);
+  });
+
   it("computes urgency labels from remaining days", () => {
     const today = getTorontoTodayYmd();
     expect(getPostingUrgency(addCalendarDaysYmd(today, 1)).label).toBe(
