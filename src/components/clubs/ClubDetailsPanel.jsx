@@ -396,7 +396,6 @@ export function ClubDetailsPanel({
               {advisors.map((advisor) => (
                 <li key={advisor.id}>
                   <strong>{advisor.supervisor_name}</strong>
-                  <span className="muted"> · {advisor.supervisor_email}</span>
                   <StatusBadge status="APPROVED" />
                 </li>
               ))}
