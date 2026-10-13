@@ -9,6 +9,7 @@ import { SafeExternalLink } from "../components/ui/SafeExternalLink";
 import { StatusBadge } from "../components/ui/StatusBadge";
 import { getClubBySlug } from "../services/clubs";
 import { getApprovedClubPromoLunchConfirmation } from "../services/clubPromoLunch";
+import { getPublicClubSupervisors } from "../services/clubSupervisors";
 import { getMyMembershipForClub } from "../services/memberships";
 import { isClubOwner } from "../utils/clubPermissions";
 import { getPromoLunchConfirmationDays } from "../utils/clubPromoLunch";
@@ -22,6 +23,7 @@ export function ClubDetailPage() {
   const { user, isAuthenticated, isAdmin } = useAuth();
   const [club, setClub] = useState(null);
   const [promoLunchConfirmation, setPromoLunchConfirmation] = useState(null);
+  const [supervisors, setSupervisors] = useState([]);
   const [membership, setMembership] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -34,6 +36,7 @@ export function ClubDetailPage() {
       setError("");
       setMembership(null);
       setPromoLunchConfirmation(null);
+      setSupervisors([]);
 
       try {
         const nextClub = await getClubBySlug(slug);
@@ -48,10 +51,13 @@ export function ClubDetailPage() {
 
         setClub(nextClub);
 
-        const nextPromoLunchConfirmation =
-          await getApprovedClubPromoLunchConfirmation(nextClub.id);
+        const [nextPromoLunchConfirmation, nextSupervisors] = await Promise.all([
+          getApprovedClubPromoLunchConfirmation(nextClub.id),
+          getPublicClubSupervisors(nextClub.id),
+        ]);
         if (!active) return;
         setPromoLunchConfirmation(nextPromoLunchConfirmation);
+        setSupervisors(nextSupervisors);
 
         if (isAuthenticated && user?.id) {
           try {
@@ -204,6 +210,20 @@ export function ClubDetailPage() {
           <div className="club-detail-item">
             <dt>Club contact</dt>
             <dd>{club.contact_email || "Not provided"}</dd>
+          </div>
+          <div className="club-detail-item">
+            <dt>Teacher supervisors</dt>
+            <dd>
+              {supervisors.length > 0 ? (
+                <ul className="club-supervisor-names">
+                  {supervisors.map((supervisor) => (
+                    <li key={supervisor.id}>{supervisor.supervisor_name}</li>
+                  ))}
+                </ul>
+              ) : (
+                "Not provided"
+              )}
+            </dd>
           </div>
           <div className="club-detail-item">
             <dt>Instagram handle</dt>
