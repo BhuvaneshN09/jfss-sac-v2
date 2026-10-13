@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { HomeBanner } from "../components/home/HomeBanner";
 import { HomeDayWeatherPanel } from "../components/home/HomeDayWeatherPanel";
+import { HomeUpcomingEvent } from "../components/home/HomeUpcomingEvent";
 import { HomepageAnnouncements } from "../components/announcements/HomepageAnnouncements";
 import { ErrorMessage } from "../components/ui/ErrorMessage";
 import { useAuth } from "../context/AuthContext";
@@ -121,6 +122,8 @@ export function HomePage() {
 
   return (
     <div className="page home-page">
+      <HomeUpcomingEvent />
+
       <HomeBanner />
 
       {accessDenied && authError ? (

@@ -1,6 +1,7 @@
 import { supabase } from "../lib/supabase";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 import { assertFileMatchesDeclaredType } from "../utils/fileMagic";
+import { getClubEventDisplayNames } from "../utils/clubEventDisplay";
 import { prepareImageFileForUpload } from "../utils/imageUpload";
 import { toAuthenticatedStorageObjectUrl, toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 
@@ -313,6 +314,7 @@ export async function getPublishedClubEvents() {
       name: event.club_name,
       slug: event.club_slug,
     },
+    club_names: getClubEventDisplayNames(event),
     photo_url: getPublicClubEventPhotoUrl(event.photo_storage_path),
   }));
 }
