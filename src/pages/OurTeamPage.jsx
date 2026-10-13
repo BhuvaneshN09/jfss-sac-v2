@@ -40,6 +40,14 @@ const execTeam = [
     photo: "/images/team/Cayden.jpg",
   },
   {
+    name: "Navya Shrivastava",
+    role: "Community Outreach",
+    grade: "Grade 12",
+    initials: "NS",
+    color: "#6b3fa0",
+    photo: "/images/team/NavyaShrivastava.jpg",
+  },
+  {
     name: "Eshaal Cheema",
     role: "Clubs Liaison",
     grade: "Grade 12",
@@ -70,22 +78,6 @@ const execTeam = [
     initials: "JC",
     color: "#1a7a5e",
     photo: "/images/team/Jason.JPG",
-  },
-  {
-    name: "Navya Shrivastava",
-    role: "General Executive",
-    grade: "Grade 12",
-    initials: "NS",
-    color: "#6b3fa0",
-    photo: "/images/team/NavyaShrivastava.jpg",
-  },
-  {
-    name: "Eshal Khan",
-    role: "General Executive",
-    grade: "Grade 11",
-    initials: "EK",
-    color: "#2d6b8f",
-    photo: "/images/team/EshalKhan.jpg",
   },
   {
     name: "Inaya Afzal",
@@ -135,11 +127,19 @@ const execTeam = [
     color: "#2d6b8f",
     photo: "/images/team/AwinahShah.jpg",
   },
+  {
+    name: "Eshal Khan",
+    role: "General Executive",
+    grade: "Grade 11",
+    initials: "EK",
+    color: "#2d6b8f",
+    photo: "/images/team/EshalKhan.jpg",
+  },
 ];
 
 const gradeRepresentatives = [
   {
-    name: "Person 1",
+    name: "Arhaan Hannan",
     role: "Grade Rep",
     grade: "Grade 9",
     initials: "P1",
@@ -147,7 +147,7 @@ const gradeRepresentatives = [
     photo: null,
   },
   {
-    name: "Person 2",
+    name: "Zoya Khan",
     role: "Grade Rep",
     grade: "Grade 10",
     initials: "P2",
@@ -155,7 +155,7 @@ const gradeRepresentatives = [
     photo: null,
   },
   {
-    name: "Person 3",
+    name: "Abdul Hamidoi",
     role: "Grade Rep",
     grade: "Grade 11",
     initials: "P3",
@@ -163,7 +163,7 @@ const gradeRepresentatives = [
     photo: null,
   },
   {
-    name: "Person 4",
+    name: "Musfirah Chowdry",
     role: "Grade Rep",
     grade: "Grade 12",
     initials: "P4",
