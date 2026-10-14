@@ -132,6 +132,50 @@ export function StudentResourcesPage() {
           </a>
         </div>
       </section>
+
+      <section className="panel" aria-labelledby="tutors-at-tables-heading">
+        <div className="tutors-heading">
+          <div>
+            <p className="eyebrow">Student Success Resources</p>
+            <div className="tutors-heading__title">
+              <img
+                className="tutors-heading__logo"
+                src="/images/tutors-at-tables/logo-tutors.png"
+                alt=""
+              />
+              <h2 id="tutors-at-tables-heading">Tutors at Tables</h2>
+            </div>
+          </div>
+          <a
+            className="tutors-heading__instagram"
+            href="https://www.instagram.com/tutors_at_tables/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Tutors at Tables on Instagram"
+          >
+            <span className="tutors-heading__instagram-icon" aria-hidden="true" />
+          </a>
+        </div>
+        <div className="quick-links">
+          <a className="quick-link" href="mailto:821448@pdsb.net">
+            Contact
+          </a>
+          <a
+            className="quick-link"
+            href="https://classroom.google.com/c/NjkwNDc5OTk3ODU4?cjc=vdkmi5y"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google Classroom
+          </a>
+        </div>
+        <div className="resource-details">
+          <p className="resource-details__schedule">
+            Drop in sessions Tuesdays &amp; Thursdays during lunch
+          </p>
+          <p className="resource-details__location">Room 203</p>
+        </div>
+      </section>
     </div>
   );
 }

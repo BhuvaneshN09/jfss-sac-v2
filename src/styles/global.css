@@ -1555,6 +1555,7 @@ summary:focus-visible {
 
 .club-card .meta-list {
   flex: 1 1 auto;
+  align-content: start;
   min-height: 0;
   margin: 0;
   gap: 0.4rem;
@@ -1562,6 +1563,7 @@ summary:focus-visible {
 }
 
 .club-card .meta-list > div {
+  align-content: start;
   min-width: 0;
 }
 
@@ -1757,6 +1759,95 @@ summary:focus-visible {
 .quick-link:hover {
   border-color: var(--primary);
   background: var(--primary-soft);
+}
+
+.tutors-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.tutors-heading__title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.tutors-heading__logo {
+  width: 3.75rem;
+  height: 3.75rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.tutors-heading__instagram {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem;
+  border-radius: 999px;
+  color: var(--text-strong);
+  text-decoration: none;
+}
+
+.tutors-heading__instagram-icon {
+  width: 2.55rem;
+  height: 2.55rem;
+  background-color: currentColor;
+  -webkit-mask: url("/images/insta-svg.svg") center / contain no-repeat;
+  mask: url("/images/insta-svg.svg") center / contain no-repeat;
+  transition: transform 0.18s ease;
+}
+
+.tutors-heading__instagram:hover .tutors-heading__instagram-icon,
+.tutors-heading__instagram:focus-visible .tutors-heading__instagram-icon {
+  transform: scale(1.12);
+  background-color: transparent;
+  background-image: linear-gradient(135deg, #833ab4 0%, #c13584 42%, #e1306c 78%, #fd1d1d 100%);
+}
+
+.tutors-heading__instagram:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.resource-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin: 1rem 0 0;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-muted);
+}
+
+.resource-details__schedule,
+.resource-details__location {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.resource-details__schedule {
+  text-align: left;
+}
+
+.resource-details__location {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .resource-details {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 .stat-value {
@@ -2169,54 +2260,6 @@ summary:focus-visible {
 .club-hero__owners {
   margin: 0.45rem 0 0;
   color: var(--text-muted);
-}
-
-.club-promo-confirmation {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.4rem;
-  margin: 0.35rem 0 0;
-}
-
-.club-promo-confirmation p {
-  margin: 0;
-  color: #4b9462;
-  font-weight: 700;
-  line-height: 1.35;
-  text-align: right;
-}
-
-.club-promo-days {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 0.15rem;
-  padding: 0.2rem;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--bg-elevated);
-}
-
-.club-promo-days__tab {
-  position: relative;
-  padding: 0.4rem 0.7rem 0.55rem;
-  color: #2f6fbf;
-  font-size: 0.85rem;
-  font-weight: 700;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
-.club-promo-days__tab::after {
-  content: "";
-  position: absolute;
-  left: 0.55rem;
-  right: 0.55rem;
-  bottom: 0.22rem;
-  height: 2px;
-  border-radius: 999px;
-  background: #2f6fbf;
 }
 
 .club-details-panel {
