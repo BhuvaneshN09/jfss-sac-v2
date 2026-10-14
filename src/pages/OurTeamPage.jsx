@@ -223,11 +223,22 @@ export function OurTeamPage() {
         </p>
       </div>
 
-      <div className="member-grid">
+      <div className="member-grid member-grid--grade-reps">
         {gradeRepresentatives.map((member) => (
           <MemberCard key={member.name} member={member} />
         ))}
       </div>
+
+      <p className="grade-reps-elections">
+        <a
+          className="text-link"
+          href="https://jfsselections-fawn.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View elections page
+        </a>
+      </p>
     </div>
   );
 }

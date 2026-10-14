@@ -4013,6 +4013,14 @@ button.nav-link {
   margin-bottom: 56px;
 }
 
+.member-grid--grade-reps {
+  margin-bottom: 28px;
+}
+
+.grade-reps-elections {
+  margin: 0;
+}
+
 @media (max-width: 900px) {
   .member-grid {
     grid-template-columns: repeat(2, 1fr);
