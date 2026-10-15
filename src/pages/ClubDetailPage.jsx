@@ -5,6 +5,7 @@ import { ClubRoleBadge } from "../components/clubs/ClubRoleBadge";
 import { EmptyState } from "../components/ui/EmptyState";
 import { ErrorMessage } from "../components/ui/ErrorMessage";
 import { LoadingScreen } from "../components/ui/LoadingScreen";
+import { OptimizedImage } from "../components/ui/OptimizedImage";
 import { SafeExternalLink } from "../components/ui/SafeExternalLink";
 import { StatusBadge } from "../components/ui/StatusBadge";
 import { getClubBySlug } from "../services/clubs";
@@ -13,6 +14,10 @@ import { getMyMembershipForClub } from "../services/memberships";
 import { isClubOwner } from "../utils/clubPermissions";
 import { getVisibleMeetingSchedule } from "../utils/clubSchedule";
 import { getErrorMessage } from "../utils/errors";
+import {
+  OPTIMIZED_LOGO_WIDTH,
+  OPTIMIZED_PHOTO_WIDTH,
+} from "../utils/optimizedImage";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 import { safeExternalHref } from "../utils/urls";
 
@@ -119,14 +124,24 @@ export function ClubDetailPage() {
     <div className="page">
       <div className="club-hero">
         {bannerUrl ? (
-          <img src={bannerUrl} alt="" className="club-hero__banner" />
+          <OptimizedImage
+            src={bannerUrl}
+            width={OPTIMIZED_PHOTO_WIDTH}
+            alt=""
+            className="club-hero__banner"
+          />
         ) : (
           <div className="club-hero__banner club-hero__banner--fallback" />
         )}
 
         <div className="club-hero__content">
           {logoUrl ? (
-            <img src={logoUrl} alt="" className="club-hero__logo" />
+            <OptimizedImage
+              src={logoUrl}
+              width={OPTIMIZED_LOGO_WIDTH}
+              alt=""
+              className="club-hero__logo"
+            />
           ) : (
             <div
               className="club-hero__logo club-hero__logo--fallback"

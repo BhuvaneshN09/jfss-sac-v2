@@ -8,6 +8,7 @@ import {
 import { useAuth } from "../context/AuthContext";
 import { ErrorMessage } from "../components/ui/ErrorMessage";
 import { LoadingScreen } from "../components/ui/LoadingScreen";
+import { OptimizedImage } from "../components/ui/OptimizedImage";
 import {
   createAthleteOfTheMonth,
   deleteAthleteOfTheMonth,
@@ -16,6 +17,7 @@ import {
   canManageAthletesEmail,
   validateAthletePhoto,
 } from "../services/athletes";
+import { OPTIMIZED_PHOTO_WIDTH } from "../utils/optimizedImage";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 
 const ATHLETE_PLACEHOLDER_COLORS = [
@@ -131,8 +133,9 @@ function AthleteCard({ athlete, index, onRemove }) {
         </button>
       ) : null}
       {photo ? (
-        <img
+        <OptimizedImage
           src={photo}
+          width={OPTIMIZED_PHOTO_WIDTH}
           alt={athlete.name}
           className="athlete-card__photo"
         />

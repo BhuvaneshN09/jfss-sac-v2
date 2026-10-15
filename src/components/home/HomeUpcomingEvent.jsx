@@ -9,8 +9,7 @@ import {
 } from "../../utils/torontoDate";
 
 const UPCOMING_WINDOW_DAYS = 15;
-const CLUB_LOGO_URL =
-  "/api/x/f/v1/object/authenticated/club-logos/club-profile-logos/d7c4a888-0487-4acc-a504-2ef9cb14e1c7/f35c5edd-a1bc-49da-9a24-e284a7e04105/a790ecba-1457-4280-8b44-cce8d8683965.png";
+const CLUB_LOGO_URL = "/images/upcoming-event-club-logo.webp";
 
 function getEventDateRange(event) {
   if (!event) return "";

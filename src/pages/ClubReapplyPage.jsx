@@ -20,7 +20,10 @@ import {
 } from "../config/clubApplications";
 import { supabase } from "../lib/supabase";
 import { validateSignedFormFile } from "../services/clubDocuments";
-import { validateClubLogoFile } from "../services/clubLogos";
+import {
+  prepareClubLogoForUpload,
+  validateClubLogoFile,
+} from "../services/clubLogos";
 import {
   listEligibleClubsForReapplication,
   submitClubReapplication,
@@ -330,7 +333,7 @@ export function ClubReapplyPage() {
     try {
       if (logoFile) {
         setUploadProgress("Uploading logo…");
-        const preparedLogo = await prepareImageFileForUpload(logoFile);
+        const preparedLogo = await prepareClubLogoForUpload(logoFile);
         const ext =
           preparedLogo.type === "image/png"
             ? "png"

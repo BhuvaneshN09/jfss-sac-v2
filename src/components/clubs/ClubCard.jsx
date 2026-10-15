@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+import { OptimizedImage } from "../ui/OptimizedImage";
 import { resolveClubLogoUrl } from "../../utils/clubMedia";
+import { OPTIMIZED_LOGO_WIDTH } from "../../utils/optimizedImage";
 
 export function ClubCard({ club }) {
   const initial = club.name?.charAt(0)?.toUpperCase() || "C";
@@ -12,8 +14,9 @@ export function ClubCard({ club }) {
     <article className="club-card">
       <div className="club-card__media">
         {logoUrl ? (
-          <img
+          <OptimizedImage
             src={logoUrl}
+            width={OPTIMIZED_LOGO_WIDTH}
             alt=""
             className="club-card__logo"
             loading="lazy"

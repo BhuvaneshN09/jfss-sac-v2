@@ -6,7 +6,11 @@ import {
 } from "../config/clubApplications";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 import { assertFileMatchesDeclaredType } from "../utils/fileMagic";
-import { prepareImageFileForUpload } from "../utils/imageUpload";
+import {
+  CLUB_LOGO_MAX_EDGE,
+  downscaleImageForDisplay,
+  prepareImageFileForUpload,
+} from "../utils/imageUpload";
 import { resolveClubLogoUrl } from "../utils/clubMedia";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 
@@ -32,6 +36,12 @@ export function validateClubLogoFile(file) {
   return null;
 }
 
+export async function prepareClubLogoForUpload(file) {
+  return prepareImageFileForUpload(
+    await downscaleImageForDisplay(file, CLUB_LOGO_MAX_EDGE),
+  );
+}
+
 export function buildClubProfileLogoPath({ userId, clubId, file }) {
   const ext = extensionForMime(file.type);
   return `club-profile-logos/${userId}/${clubId}/${crypto.randomUUID()}.${ext}`;
@@ -54,7 +64,7 @@ export async function uploadClubLogo({ userId, clubId, file }) {
 
   await assertFileMatchesDeclaredType(file, REAPP_LOGO_ALLOWED_TYPES);
 
-  const uploadFile = await prepareImageFileForUpload(file);
+  const uploadFile = await prepareClubLogoForUpload(file);
   const path = buildClubProfileLogoPath({ userId, clubId, file: uploadFile });
 
   const { error } = await supabase.storage
@@ -123,7 +133,7 @@ export async function uploadNewClubLogo({ userId, requestId, file }) {
 
   await assertFileMatchesDeclaredType(file, REAPP_LOGO_ALLOWED_TYPES);
 
-  const uploadFile = await prepareImageFileForUpload(file);
+  const uploadFile = await prepareClubLogoForUpload(file);
   const path = buildNewClubApplicationLogoPath({
     userId,
     requestId,

@@ -1,7 +1,11 @@
 import { supabase } from "../lib/supabase";
 import { getErrorMessage, logServiceError } from "../utils/errors";
 import { assertFileMatchesDeclaredType } from "../utils/fileMagic";
-import { prepareImageFileForUpload } from "../utils/imageUpload";
+import {
+  DISPLAY_PHOTO_MAX_EDGE,
+  downscaleImageForDisplay,
+  prepareImageFileForUpload,
+} from "../utils/imageUpload";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 
 export const ATHLETE_PHOTOS_BUCKET = "athlete-photos";
@@ -100,7 +104,9 @@ export async function createAthleteOfTheMonth({
   let photoStoragePath = null;
   if (photoFile) {
     await assertFileMatchesDeclaredType(photoFile, ATHLETE_PHOTO_ALLOWED_TYPES);
-    const uploadFile = await prepareImageFileForUpload(photoFile);
+    const uploadFile = await prepareImageFileForUpload(
+      await downscaleImageForDisplay(photoFile, DISPLAY_PHOTO_MAX_EDGE),
+    );
     photoStoragePath = buildAthletePhotoPath(userId, uploadFile);
     const { error: uploadError } = await supabase.storage
       .from(ATHLETE_PHOTOS_BUCKET)

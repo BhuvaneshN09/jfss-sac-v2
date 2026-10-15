@@ -29,8 +29,10 @@ export function AuthProvider({ children }) {
   const [accessDenied, setAccessDenied] = useState(false);
   const [authError, setAuthError] = useState("");
   const authGenerationRef = useRef(0);
+  const loadedUserIdRef = useRef(null);
 
   const clearSessionState = useCallback(() => {
+    loadedUserIdRef.current = null;
     setUser(null);
     setProfile(null);
     setSystemRoles([]);
@@ -99,6 +101,7 @@ export function AuthProvider({ children }) {
 
       setAccessDenied(false);
       setAuthError("");
+      loadedUserIdRef.current = currentUser.id;
       setUser(currentUser);
 
       let nextError = "";
@@ -173,10 +176,23 @@ export function AuthProvider({ children }) {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      const nextUser = session?.user ?? null;
+      // initialize() already loads the starting session, and token refreshes /
+      // tab refocus re-emit the same user; reprocessing those refetches the
+      // profile and swaps the user object, re-running every [user] effect.
+      if (event === "INITIAL_SESSION") return;
+      if (
+        nextUser &&
+        event !== "USER_UPDATED" &&
+        nextUser.id === loadedUserIdRef.current
+      ) {
+        return;
+      }
+
       window.setTimeout(() => {
         if (active) {
-          processUser(session?.user ?? null);
+          processUser(nextUser);
         }
       }, 0);
     });

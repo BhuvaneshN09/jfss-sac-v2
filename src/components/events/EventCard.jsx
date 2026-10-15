@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { OptimizedImage } from "../ui/OptimizedImage";
+import { OPTIMIZED_PHOTO_WIDTH } from "../../utils/optimizedImage";
 import { toSameOriginSupabaseUrl } from "../../utils/proxiedSupabaseUrl";
 
 const DESCRIPTION_PREVIEW_LENGTH = 240;
@@ -21,7 +23,7 @@ export function EventCard({ event }) {
     <div className="event-card">
       <div className="event-card__photo">
         {photo ? (
-          <img src={photo} alt={title} />
+          <OptimizedImage src={photo} width={OPTIMIZED_PHOTO_WIDTH} alt={title} />
         ) : (
           <div className="event-card__photo-placeholder">Photo coming soon</div>
         )}

@@ -1,4 +1,16 @@
 {
+  "images": {
+    "sizes": [256, 1080],
+    "qualities": [75],
+    "formats": ["image/webp"],
+    "minimumCacheTTL": 2678400,
+    "localPatterns": [
+      {
+        "pathname": "^/api/x/f/v1/object/(public|authenticated)/(club-logos|club-event-photos|athlete-photos)/.+$",
+        "search": ""
+      }
+    ]
+  },
   "headers": [
     {
       "source": "/(.*)",
