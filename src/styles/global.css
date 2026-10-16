@@ -1754,11 +1754,20 @@ summary:focus-visible {
   text-decoration: none;
   font-weight: 700;
   color: var(--text-strong);
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    color 0.18s ease;
 }
 
-.quick-link:hover {
+.quick-link:hover,
+.quick-link:focus-visible {
+  transform: translateY(-2px);
   border-color: var(--primary);
   background: var(--primary-soft);
+  box-shadow: 0 8px 18px rgba(15, 28, 46, 0.1);
 }
 
 .tutors-heading {
@@ -1775,9 +1784,20 @@ summary:focus-visible {
   gap: 0.45rem;
 }
 
+.tutors-heading__title h2 {
+  margin-bottom: 0.2rem;
+}
+
+.tutors-heading__schedule {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
 .tutors-heading__logo {
-  width: 3.75rem;
-  height: 3.75rem;
+  width: 4.5rem;
+  height: 4.5rem;
   flex-shrink: 0;
   border-radius: 50%;
   object-fit: cover;
@@ -1792,6 +1812,9 @@ summary:focus-visible {
   border-radius: 999px;
   color: var(--text-strong);
   text-decoration: none;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .tutors-heading__instagram-icon {
@@ -1810,44 +1833,14 @@ summary:focus-visible {
   background-image: linear-gradient(135deg, #833ab4 0%, #c13584 42%, #e1306c 78%, #fd1d1d 100%);
 }
 
+.tutors-heading__instagram:hover,
+.tutors-heading__instagram:focus-visible {
+  transform: translateY(-2px);
+}
+
 .tutors-heading__instagram:focus-visible {
   outline: none;
   box-shadow: var(--focus);
-}
-
-.resource-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem 1.5rem;
-  margin: 1rem 0 0;
-  padding: 1rem 1.15rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg-muted);
-}
-
-.resource-details__schedule,
-.resource-details__location {
-  margin: 0;
-  font-weight: 600;
-  color: var(--text-strong);
-}
-
-.resource-details__schedule {
-  text-align: left;
-}
-
-.resource-details__location {
-  flex-shrink: 0;
-  text-align: right;
-}
-
-@media (max-width: 640px) {
-  .resource-details {
-    flex-direction: column;
-    align-items: stretch;
-  }
 }
 
 .stat-value {

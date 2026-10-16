@@ -143,7 +143,13 @@ export function StudentResourcesPage() {
                 src="/images/tutors-at-tables/logo-tutors.png"
                 alt=""
               />
-              <h2 id="tutors-at-tables-heading">Tutors at Tables</h2>
+              <div>
+                <h2 id="tutors-at-tables-heading">Tutors at Tables</h2>
+                <p className="tutors-heading__schedule">
+                  Drop in sessions Tuesdays &amp; Thursdays during lunch · Room
+                  203
+                </p>
+              </div>
             </div>
           </div>
           <a
@@ -168,12 +174,6 @@ export function StudentResourcesPage() {
           >
             Google Classroom
           </a>
-        </div>
-        <div className="resource-details">
-          <p className="resource-details__schedule">
-            Drop in sessions Tuesdays &amp; Thursdays during lunch
-          </p>
-          <p className="resource-details__location">Room 203</p>
         </div>
       </section>
     </div>
