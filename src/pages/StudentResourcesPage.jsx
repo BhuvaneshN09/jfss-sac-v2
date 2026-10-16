@@ -37,7 +37,7 @@ const guidanceCounsellors = [
   },
 ];
 
-function BookingArrowIcon() {
+function LinkArrowIcon() {
   return (
     <svg
       className="counsellor-card__arrow"
@@ -78,7 +78,7 @@ function CounsellorCard({ counsellor }) {
           <span className="counsellor-card__name">{counsellor.name}</span>
           <span className="counsellor-card__range">{counsellor.range}</span>
         </span>
-        <BookingArrowIcon />
+        <LinkArrowIcon />
       </div>
       <span className="counsellor-card__email">{counsellor.email}</span>
     </a>
@@ -121,6 +121,7 @@ export function StudentResourcesPage() {
             rel="noopener noreferrer"
           >
             SAC Photos
+            <LinkArrowIcon />
           </a>
           <a
             className="quick-link"
@@ -129,6 +130,7 @@ export function StudentResourcesPage() {
             rel="noopener noreferrer"
           >
             SAC Agendas
+            <LinkArrowIcon />
           </a>
         </div>
       </section>
@@ -165,6 +167,7 @@ export function StudentResourcesPage() {
         <div className="quick-links">
           <a className="quick-link" href="mailto:821448@pdsb.net">
             Contact
+            <LinkArrowIcon />
           </a>
           <a
             className="quick-link"
@@ -173,6 +176,7 @@ export function StudentResourcesPage() {
             rel="noopener noreferrer"
           >
             Google Classroom
+            <LinkArrowIcon />
           </a>
         </div>
       </section>

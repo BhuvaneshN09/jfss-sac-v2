@@ -1746,8 +1746,9 @@ summary:focus-visible {
 }
 
 .quick-link {
+  position: relative;
   display: block;
-  padding: 1rem 1.1rem;
+  padding: 1rem 2.75rem 1rem 1.1rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--bg-muted);
@@ -1762,12 +1763,27 @@ summary:focus-visible {
     color 0.18s ease;
 }
 
+.quick-link .counsellor-card__arrow {
+  position: absolute;
+  top: 1rem;
+  right: 1.1rem;
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
 .quick-link:hover,
 .quick-link:focus-visible {
   transform: translateY(-2px);
   border-color: var(--primary);
   background: var(--primary-soft);
   box-shadow: 0 8px 18px rgba(15, 28, 46, 0.1);
+}
+
+.quick-link:hover .counsellor-card__arrow,
+.quick-link:focus-visible .counsellor-card__arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+  color: var(--primary);
 }
 
 .tutors-heading {
