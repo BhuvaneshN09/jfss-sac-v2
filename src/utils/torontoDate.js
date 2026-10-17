@@ -30,6 +30,21 @@ export function getTorontoTomorrowYmd(now = new Date()) {
   return addCalendarDaysYmd(getTorontoTodayYmd(now), 1);
 }
 
+/**
+ * Monday after the Mon–Sun week that contains `ymd`.
+ * Posted announcements expire at that Toronto midnight.
+ */
+export function getAnnouncementWeekRefreshYmd(ymd) {
+  const match = YMD_PATTERN.exec(String(ymd || "").trim());
+  if (!match) return "";
+
+  const utc = new Date(
+    Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])),
+  );
+  const isoDow = utc.getUTCDay() === 0 ? 7 : utc.getUTCDay();
+  return addCalendarDaysYmd(ymd, 8 - isoDow);
+}
+
 /** Whole calendar days from `fromYmd` to `toYmd` (to - from). */
 export function diffCalendarDaysYmd(fromYmd, toYmd) {
   const from = YMD_PATTERN.exec(String(fromYmd || "").trim());

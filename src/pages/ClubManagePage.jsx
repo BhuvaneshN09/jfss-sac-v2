@@ -14,7 +14,6 @@ import { ClubAnnouncementsPanel } from "../components/clubs/ClubAnnouncementsPan
 import { ClubDetailsPanel } from "../components/clubs/ClubDetailsPanel";
 import { ClubEventForm } from "../components/clubs/ClubEventForm";
 import { ClubFundingForm } from "../components/clubs/ClubFundingForm";
-import { ClubPromoLunchForm } from "../components/clubs/ClubPromoLunchForm";
 import { ClubManageTabs } from "../components/clubs/ClubManageTabs";
 import { ClubPeoplePanel } from "../components/clubs/ClubPeoplePanel";
 import { ConfirmDialog } from "../components/ui/ConfirmDialog";
@@ -47,7 +46,6 @@ import {
 import { getErrorMessage } from "../utils/errors";
 import { formatDate } from "../utils/format";
 import { archiveSuccessNotice } from "../utils/clubOrigin";
-import { PROMO_LUNCH_SUBMISSIONS_OPEN } from "../utils/clubPromoLunch";
 
 function annualStatusLabel(status, overdue) {
   if (status === "PENDING_SUPERVISOR" && overdue) return "Supervisor Overdue";
@@ -72,7 +70,6 @@ export function ClubManagePage() {
       "announcements",
       "funding",
       "events",
-      "promoLunch",
     ].includes(requestedTab)
       ? requestedTab
       : "details";
@@ -314,7 +311,7 @@ export function ClubManagePage() {
               : "Pending Teacher Supervisor"}
           </strong>
           <p>
-            This club is not public in Explore. Funding, events, promo lunch,
+            This club is not public in Explore. Funding, events,
             and announcements stay blocked until SAC approves at least one
             teacher supervisor. Owners may still manage members and submit
             supervisor information.
@@ -454,30 +451,6 @@ export function ClubManagePage() {
               Submit an event proposal for SAC review and potential approval.
             </p>
             <ClubEventForm
-              club={club}
-              canSubmit={canSubmitRequests}
-              canView={canViewRequests}
-              blockedMessage={requestBlockedMessage}
-            />
-          </section>
-        </div>
-      ) : null}
-
-      {activeTab === "promoLunch" ? (
-        <div
-          id="manage-panel-promoLunch"
-          role="tabpanel"
-          aria-labelledby="manage-tab-promoLunch"
-          className="stack"
-        >
-          <section className="panel">
-            <h2>Club Promo Lunch sign-up</h2>
-            <p className="muted">
-              {PROMO_LUNCH_SUBMISSIONS_OPEN
-                ? "Submit your club's booth information for review and confirmation."
-                : "New sign-ups are closed. Submitted sign-ups can still be reviewed and posted."}
-            </p>
-            <ClubPromoLunchForm
               club={club}
               canSubmit={canSubmitRequests}
               canView={canViewRequests}

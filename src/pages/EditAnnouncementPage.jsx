@@ -208,7 +208,8 @@ export function EditAnnouncementPage() {
           <p className="lede">
             Club association cannot be changed after creation. Choosing today’s
             posting date publishes immediately on approval; future dates go live
-            at midnight that day.
+            at midnight that day. Posted announcements stay up through Sunday
+            and refresh Monday at midnight.
           </p>
         </div>
       </header>

@@ -131,7 +131,7 @@ export function CreateAnnouncementPage() {
         state: {
           notice:
             action === "SUBMIT"
-              ? "Announcement submitted for SAC review."
+              ? "Announcement submitted for SAC review. Once posted, it stays up for that week."
               : "Draft saved.",
         },
       });
@@ -155,8 +155,8 @@ export function CreateAnnouncementPage() {
           <h1>New announcement</h1>
           <p className="lede">
             {isStaff
-              ? "Create a general announcement, or a club announcement for a club you own."
-              : "Create a club announcement as a draft or submit it for SAC review with a posting date."}
+              ? "Create a general announcement, or a club announcement for a club you own. Once posted, it stays up for that week (Monday through Sunday)."
+              : "Submit a club announcement for SAC review. Once posted, it stays up for that week (Monday through Sunday)."}
           </p>
         </div>
       </header>

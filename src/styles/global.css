@@ -4663,57 +4663,13 @@ button.nav-link {
   min-width: 0;
 }
 
-@media (min-width: 701px) {
-  .clubs-toolbar .form-field {
-    order: 1;
-  }
-
-  .clubs-toolbar .promo-lunch-filter {
-    order: 2;
-  }
-}
-
-.promo-lunch-filter {
-  min-height: 2.75rem;
-  padding: 0.7rem 1.1rem;
-  color: #4b9462;
-  background: transparent;
-  border: 1px solid #4b9462;
-  border-radius: 999px;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    background 0.15s ease,
-    color 0.15s ease;
-}
-
-.promo-lunch-filter:hover:not(:disabled) {
-  background: rgba(75, 148, 98, 0.12);
-}
-
-.promo-lunch-filter--active {
-  color: #fff;
-  background: #4b9462;
-}
-
-.promo-lunch-filter--active:hover:not(:disabled) {
-  background: rgba(75, 148, 98, 0.85);
-}
-
-.promo-lunch-filter:disabled {
-  cursor: not-allowed;
-  opacity: 0.65;
-}
-
 @media (max-width: 700px) {
   .clubs-toolbar {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .clubs-toolbar .form-field,
-  .promo-lunch-filter {
+  .clubs-toolbar .form-field {
     width: 100%;
   }
 }

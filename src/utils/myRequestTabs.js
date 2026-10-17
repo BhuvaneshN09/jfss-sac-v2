@@ -19,7 +19,6 @@ export function buildMyRequestTabs({
   );
   const canSubmitFunding = canSubmitOfficialClubRequests;
   const canSubmitEvents = canSubmitOfficialClubRequests;
-  const canSubmitPromoLunch = canSubmitOfficialClubRequests;
 
   return [
     {
@@ -60,15 +59,6 @@ export function buildMyRequestTabs({
             id: "events",
             to: "/my-requests/events",
             label: "Events",
-          },
-        ]
-      : []),
-    ...(canSubmitPromoLunch
-      ? [
-          {
-            id: "promoLunch",
-            to: "/my-requests/promo-lunch",
-            label: "Promo Lunch",
           },
         ]
       : []),

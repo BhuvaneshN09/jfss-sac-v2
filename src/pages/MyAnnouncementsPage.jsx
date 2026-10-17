@@ -78,6 +78,11 @@ export function MyAnnouncementsPage({ embedded = false }) {
         </header>
       ) : null}
 
+      <p className="muted">
+        Once posted, an announcement stays up for this week (Monday through
+        Sunday) and comes down Monday at midnight.
+      </p>
+
       {notice ? (
         <div className="alert alert--success" role="status">
           <strong>Success</strong>

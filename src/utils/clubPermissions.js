@@ -52,7 +52,7 @@ export function getMembershipAnnualStatus(
   return membership?.annualStatus ?? null;
 }
 
-/** Official, currently active clubs may submit event/funding/promo-lunch forms. */
+/** Official, currently active clubs may submit event/funding forms. */
 export function canSubmitClubRequestForms({
   clubRole,
   membershipStatus,

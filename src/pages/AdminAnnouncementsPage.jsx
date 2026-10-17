@@ -67,7 +67,8 @@ export function AdminAnnouncementsPage({ embedded = false }) {
             <p className="lede">
               Review submissions sorted by scheduled posting date.
               Approving a same-day request publishes it immediately; future
-              dates go live at midnight on that day.
+              dates go live at midnight on that day. Posted announcements
+              stay up through Sunday and refresh Monday at midnight.
             </p>
           </div>
         </header>
@@ -83,8 +84,9 @@ export function AdminAnnouncementsPage({ embedded = false }) {
       ) : (
         <PermissionNotice title="Scheduled posting">
           Choose today to publish when approved, or a future date to
-          schedule midnight go-live. Unapproved requests are cancelled after
-          their posting day ends.
+          schedule midnight go-live. Posted announcements stay up for that
+          week. Unapproved requests are cancelled after their posting day
+          ends.
         </PermissionNotice>
       )}
 

@@ -24,10 +24,6 @@ export function ExecRequestsLayout() {
       label: "Events",
     },
     {
-      to: "/exec-dashboard/requests/promo-lunch",
-      label: "Promo Lunch",
-    },
-    {
       to: "/exec-dashboard/requests/announcements",
       label: "Announcements",
     },
