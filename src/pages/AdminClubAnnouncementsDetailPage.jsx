@@ -66,7 +66,7 @@ export function AdminClubAnnouncementsDetailPage({ embedded = false }) {
       await reviewAnnouncement(announcement.id, action, notes);
       setSuccess(
         action === "PUBLISH"
-          ? announcement.scheduled_posting_date === getTorontoTodayYmd()
+          ? announcement.scheduled_posting_date <= getTorontoTodayYmd()
             ? `Approved “${announcement.title}”. It is live on the public board now.`
             : `Approved “${announcement.title}”. It will appear on the public board on its posting date.`
           : `Updated “${announcement.title}” to ${action}.`,

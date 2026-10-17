@@ -84,9 +84,9 @@ export function AdminAnnouncementsPage({ embedded = false }) {
       ) : (
         <PermissionNotice title="Scheduled posting">
           Choose today to publish when approved, or a future date to
-          schedule midnight go-live. Posted announcements stay up for that
-          week. Unapproved requests are cancelled after their posting day
-          ends.
+          schedule midnight go-live. Overdue requests can still be approved
+          and go live immediately. Posted announcements stay up for that
+          week.
         </PermissionNotice>
       )}
 

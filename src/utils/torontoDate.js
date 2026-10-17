@@ -74,7 +74,7 @@ export function getPostingUrgency(scheduledYmd, now = new Date()) {
     return {
       days,
       tone: "danger",
-      label: "Past due",
+      label: "Overdue — approve to post now",
     };
   }
   if (days === 0) {
