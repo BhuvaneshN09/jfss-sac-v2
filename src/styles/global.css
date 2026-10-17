@@ -2985,12 +2985,26 @@ button.nav-link {
 .announcement-card__excerpt {
   margin: 0;
   color: var(--text);
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  line-clamp: 3;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.announcement-card__excerpt--expanded {
+  white-space: pre-wrap;
+}
+
+.announcement-card__more {
+  align-self: flex-start;
+  margin-top: 0.35rem;
+  padding: 0;
+  color: #2c5eb0;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.announcement-card__more:hover {
+  text-decoration: underline;
 }
 
 .announcement-card__club {
