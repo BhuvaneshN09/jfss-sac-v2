@@ -5,7 +5,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "AT",
     color: "#1e2a4a",
-    photo: "/images/team/ArshaanThind.jpeg",
+    photo: "/images/team/ArshaanThind.jpg",
   },
   {
     name: "Amrita Rajaram",
@@ -29,7 +29,7 @@ const execTeam = [
     grade: "Grade 11",
     initials: "KC",
     color: "#6b3fa0",
-    photo: "/images/team/KiratChopra.jpeg",
+    photo: "/images/team/KiratChopra.jpg",
   },
   {
     name: "Cayden Janjua",
@@ -77,7 +77,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "JC",
     color: "#1a7a5e",
-    photo: "/images/team/Jason.JPG",
+    photo: "/images/team/Jason.jpg",
   },
   {
     name: "Inaya Afzal",
@@ -85,7 +85,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "IA",
     color: "#b5651d",
-    photo: "/images/team/InayaAfzal.JPG",
+    photo: "/images/team/InayaAfzal.jpg",
   },
   {
     name: "Alissa Roy",
@@ -101,7 +101,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "YD",
     color: "#b5651d",
-    photo: "/images/team/Yasmine.PNG",
+    photo: "/images/team/Yasmine.jpg",
   },
   {
     name: "Arhum Saleem",
@@ -109,7 +109,7 @@ const execTeam = [
     grade: "Grade 11",
     initials: "AS",
     color: "#2f4b9e",
-    photo: "/images/team/Arhum.JPG",
+    photo: "/images/team/Arhum.jpg",
   },
   {
     name: "Justin Deng",
@@ -180,6 +180,10 @@ function MemberCard({ member }) {
           src={member.photo}
           alt={member.name}
           className="member-avatar-photo"
+          width="160"
+          height="160"
+          decoding="async"
+          loading="lazy"
         />
       ) : (
         <div
