@@ -77,7 +77,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "JC",
     color: "#1a7a5e",
-    photo: "/images/team/Jason.jpg",
+    photo: "/images/team/Jason.JPG",
   },
   {
     name: "Inaya Afzal",
@@ -85,7 +85,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "IA",
     color: "#b5651d",
-    photo: "/images/team/InayaAfzal.jpg",
+    photo: "/images/team/InayaAfzal.JPG",
   },
   {
     name: "Alissa Roy",
@@ -109,7 +109,7 @@ const execTeam = [
     grade: "Grade 11",
     initials: "AS",
     color: "#2f4b9e",
-    photo: "/images/team/Arhum.jpg",
+    photo: "/images/team/Arhum.JPG",
   },
   {
     name: "Justin Deng",
