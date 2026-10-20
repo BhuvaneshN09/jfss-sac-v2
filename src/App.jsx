@@ -199,10 +199,6 @@ export default function App() {
               />
               <Route path="funding" element={<MyFundingRequestsPage />} />
               <Route path="events" element={<MyEventRequestsPage />} />
-              <Route
-                path="promo-lunch"
-                element={<Navigate to="/my-requests" replace />}
-              />
             </Route>
 
             <Route
@@ -365,14 +361,6 @@ export default function App() {
                 element={
                   <Navigate to="/exec-dashboard/requests/events" replace />
                 }
-              />
-              <Route
-                path="requests/promo-lunch"
-                element={<Navigate to="/exec-dashboard/requests" replace />}
-              />
-              <Route
-                path="requests/promo-lunch/:requestId"
-                element={<Navigate to="/exec-dashboard/requests" replace />}
               />
             </Route>
 
