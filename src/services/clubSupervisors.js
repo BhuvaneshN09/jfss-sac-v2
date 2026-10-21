@@ -180,24 +180,6 @@ export async function getMySupervisorRequestsForClubs(clubIds) {
   return data ?? [];
 }
 
-/** Approved supervisor names for the public club details page. */
-export async function getPublicClubSupervisors(clubId) {
-  if (!clubId) return [];
-
-  const { data, error } = await supabase.rpc(
-    "get_public_club_supervisors",
-    { p_club_id: clubId },
-    { get: true },
-  );
-
-  if (error) {
-    logServiceError("getPublicClubSupervisors", error);
-    return [];
-  }
-
-  return data ?? [];
-}
-
 export async function getActiveClubAdvisors(clubId, schoolYear = null) {
   let query = supabase
     .from("club_advisors")

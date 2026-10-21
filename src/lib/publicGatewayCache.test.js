@@ -46,15 +46,6 @@ describe("publicGatewayCache", () => {
     expect(
       getPublicCdnCacheControl({
         method: "GET",
-        pathname: "/rest/v1/rpc/get_public_club_supervisors",
-        status: 200,
-        hasUserToken: true,
-      }),
-    ).toMatch(/s-maxage=120/);
-
-    expect(
-      getPublicCdnCacheControl({
-        method: "GET",
         pathname: "/rest/v1/athletes_of_the_month",
         status: 200,
         hasUserToken: true,

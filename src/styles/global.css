@@ -2309,14 +2309,6 @@ summary:focus-visible {
   overflow-wrap: anywhere;
 }
 
-.club-supervisor-names {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.2rem;
-}
-
 .prose {
   white-space: pre-wrap;
 }

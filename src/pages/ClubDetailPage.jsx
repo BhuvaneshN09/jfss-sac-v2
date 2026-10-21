@@ -9,7 +9,6 @@ import { OptimizedImage } from "../components/ui/OptimizedImage";
 import { SafeExternalLink } from "../components/ui/SafeExternalLink";
 import { StatusBadge } from "../components/ui/StatusBadge";
 import { getClubBySlug } from "../services/clubs";
-import { getPublicClubSupervisors } from "../services/clubSupervisors";
 import { getMyMembershipForClub } from "../services/memberships";
 import { isClubOwner } from "../utils/clubPermissions";
 import { getVisibleMeetingSchedule } from "../utils/clubSchedule";
@@ -25,7 +24,6 @@ export function ClubDetailPage() {
   const { slug } = useParams();
   const { user, isAuthenticated, isAdmin } = useAuth();
   const [club, setClub] = useState(null);
-  const [supervisors, setSupervisors] = useState([]);
   const [membership, setMembership] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -37,7 +35,6 @@ export function ClubDetailPage() {
       setLoading(true);
       setError("");
       setMembership(null);
-      setSupervisors([]);
 
       try {
         const nextClub = await getClubBySlug(slug);
@@ -51,10 +48,6 @@ export function ClubDetailPage() {
         }
 
         setClub(nextClub);
-
-        const nextSupervisors = await getPublicClubSupervisors(nextClub.id);
-        if (!active) return;
-        setSupervisors(nextSupervisors);
 
         if (isAuthenticated && user?.id) {
           try {
@@ -196,20 +189,6 @@ export function ClubDetailPage() {
           <div className="club-detail-item">
             <dt>Club contact</dt>
             <dd>{club.contact_email || "Not provided"}</dd>
-          </div>
-          <div className="club-detail-item">
-            <dt>Teacher supervisors</dt>
-            <dd>
-              {supervisors.length > 0 ? (
-                <ul className="club-supervisor-names">
-                  {supervisors.map((supervisor) => (
-                    <li key={supervisor.id}>{supervisor.supervisor_name}</li>
-                  ))}
-                </ul>
-              ) : (
-                "Not provided"
-              )}
-            </dd>
           </div>
           <div className="club-detail-item">
             <dt>Instagram handle</dt>

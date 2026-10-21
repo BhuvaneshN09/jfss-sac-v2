@@ -67,9 +67,6 @@ function sharedPublicCacheControl(path) {
   if (restExact(path, "rpc/get_public_club_events")) {
     return cacheControl({ maxAge: 0, sMaxAge: 120, swr: 300 });
   }
-  if (restExact(path, "rpc/get_public_club_supervisors")) {
-    return cacheControl({ maxAge: 0, sMaxAge: 120, swr: 300 });
-  }
   if (restExact(path, "rpc/get_current_club_school_year")) {
     return cacheControl({ maxAge: 0, sMaxAge: 3600, swr: DAY_SECONDS });
   }
