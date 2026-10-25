@@ -6,7 +6,6 @@ import { EmptyState } from "../components/ui/EmptyState";
 import { ErrorMessage } from "../components/ui/ErrorMessage";
 import { TextInput } from "../components/ui/TextInput";
 import { getApprovedClubs } from "../services/clubs";
-import { getConfirmedClubPromoLunchClubIds } from "../services/clubPromoLunch";
 import {
   CLUB_EXPLORE_LOAD_MORE_COUNT,
   CLUB_EXPLORE_MOBILE_QUERY,
@@ -31,8 +30,6 @@ export function ClubsPage() {
   const location = useLocation();
   const [clubs, setClubs] = useState([]);
   const [search, setSearch] = useState("");
-  const [promoLunchOnly, setPromoLunchOnly] = useState(false);
-  const [promoLunchClubIds, setPromoLunchClubIds] = useState(() => new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState(location.state?.notice || "");
@@ -65,19 +62,7 @@ export function ClubsPage() {
     setError("");
 
     try {
-      const [clubsResult, promoResult] = await Promise.allSettled([
-        getApprovedClubs(),
-        getConfirmedClubPromoLunchClubIds(),
-      ]);
-      if (clubsResult.status === "rejected") {
-        throw clubsResult.reason;
-      }
-      setClubs(clubsResult.value);
-      setPromoLunchClubIds(
-        promoResult.status === "fulfilled"
-          ? promoResult.value
-          : new Set(),
-      );
+      setClubs(await getApprovedClubs());
     } catch (loadError) {
       setError(getErrorMessage(loadError, "Could not load clubs."));
     } finally {
@@ -93,7 +78,6 @@ export function ClubsPage() {
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
     return clubs.filter((club) => {
-      if (promoLunchOnly && !promoLunchClubIds.has(club.id)) return false;
       if (!query) return true;
       const haystack = [
         club.name,
@@ -109,9 +93,9 @@ export function ClubsPage() {
         .toLowerCase();
       return haystack.includes(query);
     });
-  }, [clubs, promoLunchClubIds, promoLunchOnly, search]);
+  }, [clubs, search]);
 
-  const filterKey = `${promoLunchOnly ? "1" : "0"}:${search}:${initialCount}`;
+  const filterKey = `${search}:${initialCount}`;
   if (visibleByFilter.key !== filterKey) {
     setVisibleByFilter({ key: filterKey, count: initialCount });
   }
@@ -137,17 +121,6 @@ export function ClubsPage() {
     <div className="page">
       <div className="clubs-explore-controls">
         <div className="toolbar clubs-toolbar">
-          <button
-            type="button"
-            className={`promo-lunch-filter${promoLunchOnly ? " promo-lunch-filter--active" : ""}`}
-            aria-pressed={promoLunchOnly}
-            disabled={loading}
-            onClick={() => setPromoLunchOnly((active) => !active)}
-          >
-            {promoLunchOnly
-              ? "Clubs confirmed for Club Promo Lunch"
-              : "See clubs confirmed for Club Promo Lunch"}
-          </button>
           <TextInput
             id="club-search"
             value={search}
@@ -200,9 +173,7 @@ export function ClubsPage() {
         >
           {search.trim()
             ? "No approved clubs match your search. Try a different name or clear the search."
-            : promoLunchOnly
-              ? "No clubs have been confirmed for Club Promo Lunch yet."
-              : "There are no publicly active clubs to show right now. Check back after clubs are approved for this school year."}
+            : "There are no publicly active clubs to show right now. Check back after clubs are approved for this school year."}
         </EmptyState>
       ) : null}
 

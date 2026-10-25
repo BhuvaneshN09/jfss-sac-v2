@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AnnouncementStatusBadge } from "./AnnouncementStatusBadge";
 import { announcementExcerpt } from "../../utils/announcementPermissions";
 import { formatDate } from "../../utils/format";
 import { formatDateOnly } from "../../utils/torontoDate";
+
+const DESCRIPTION_PREVIEW_LENGTH = 240;
 
 function announcementDateLabel(announcement, showStatus) {
   if (showStatus) {
@@ -27,8 +30,14 @@ export function AnnouncementCard({
   showStatus = false,
   actions = null,
 }) {
+  const [expanded, setExpanded] = useState(false);
   const club = announcement.clubs;
-  const excerpt = announcementExcerpt(announcement, 180);
+  const fullText =
+    announcement.body?.trim() || announcement.summary?.trim() || "";
+  const shouldTruncate = fullText.length > DESCRIPTION_PREVIEW_LENGTH;
+  const excerpt = shouldTruncate
+    ? announcementExcerpt(announcement, DESCRIPTION_PREVIEW_LENGTH)
+    : fullText;
   const dateLabel = announcementDateLabel(announcement, showStatus);
 
   return (
@@ -62,8 +71,28 @@ export function AnnouncementCard({
           </time>
         </div>
 
-        {excerpt ? (
-          <p className="announcement-card__excerpt">{excerpt}</p>
+        {fullText ? (
+          <>
+            <p
+              className={
+                expanded && shouldTruncate
+                  ? "announcement-card__excerpt announcement-card__excerpt--expanded"
+                  : "announcement-card__excerpt"
+              }
+            >
+              {expanded || !shouldTruncate ? fullText : excerpt}
+            </p>
+            {shouldTruncate ? (
+              <button
+                type="button"
+                className="announcement-card__more"
+                aria-expanded={expanded}
+                onClick={() => setExpanded((isExpanded) => !isExpanded)}
+              >
+                {expanded ? "Show less" : "More"}
+              </button>
+            ) : null}
+          </>
         ) : null}
 
         <p className="announcement-card__club">

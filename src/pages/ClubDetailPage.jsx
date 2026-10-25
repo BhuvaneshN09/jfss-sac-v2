@@ -5,15 +5,18 @@ import { ClubRoleBadge } from "../components/clubs/ClubRoleBadge";
 import { EmptyState } from "../components/ui/EmptyState";
 import { ErrorMessage } from "../components/ui/ErrorMessage";
 import { LoadingScreen } from "../components/ui/LoadingScreen";
+import { OptimizedImage } from "../components/ui/OptimizedImage";
 import { SafeExternalLink } from "../components/ui/SafeExternalLink";
 import { StatusBadge } from "../components/ui/StatusBadge";
 import { getClubBySlug } from "../services/clubs";
-import { getApprovedClubPromoLunchConfirmation } from "../services/clubPromoLunch";
 import { getMyMembershipForClub } from "../services/memberships";
 import { isClubOwner } from "../utils/clubPermissions";
-import { getPromoLunchConfirmationDays } from "../utils/clubPromoLunch";
 import { getVisibleMeetingSchedule } from "../utils/clubSchedule";
 import { getErrorMessage } from "../utils/errors";
+import {
+  OPTIMIZED_LOGO_WIDTH,
+  OPTIMIZED_PHOTO_WIDTH,
+} from "../utils/optimizedImage";
 import { toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 import { safeExternalHref } from "../utils/urls";
 
@@ -21,7 +24,6 @@ export function ClubDetailPage() {
   const { slug } = useParams();
   const { user, isAuthenticated, isAdmin } = useAuth();
   const [club, setClub] = useState(null);
-  const [promoLunchConfirmation, setPromoLunchConfirmation] = useState(null);
   const [membership, setMembership] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -33,7 +35,6 @@ export function ClubDetailPage() {
       setLoading(true);
       setError("");
       setMembership(null);
-      setPromoLunchConfirmation(null);
 
       try {
         const nextClub = await getClubBySlug(slug);
@@ -47,11 +48,6 @@ export function ClubDetailPage() {
         }
 
         setClub(nextClub);
-
-        const nextPromoLunchConfirmation =
-          await getApprovedClubPromoLunchConfirmation(nextClub.id);
-        if (!active) return;
-        setPromoLunchConfirmation(nextPromoLunchConfirmation);
 
         if (isAuthenticated && user?.id) {
           try {
@@ -116,22 +112,29 @@ export function ClubDetailPage() {
   const logoUrl = safeExternalHref(toSameOriginSupabaseUrl(club.logo_url));
   const memberApplyHref = safeExternalHref(club.member_application_url);
   const execApplyHref = safeExternalHref(club.exec_application_url);
-  const promoLunchDays = getPromoLunchConfirmationDays(
-    promoLunchConfirmation?.boothDays,
-  );
 
   return (
     <div className="page">
       <div className="club-hero">
         {bannerUrl ? (
-          <img src={bannerUrl} alt="" className="club-hero__banner" />
+          <OptimizedImage
+            src={bannerUrl}
+            width={OPTIMIZED_PHOTO_WIDTH}
+            alt=""
+            className="club-hero__banner"
+          />
         ) : (
           <div className="club-hero__banner club-hero__banner--fallback" />
         )}
 
         <div className="club-hero__content">
           {logoUrl ? (
-            <img src={logoUrl} alt="" className="club-hero__logo" />
+            <OptimizedImage
+              src={logoUrl}
+              width={OPTIMIZED_LOGO_WIDTH}
+              alt=""
+              className="club-hero__logo"
+            />
           ) : (
             <div
               className="club-hero__logo club-hero__logo--fallback"
@@ -149,44 +152,26 @@ export function ClubDetailPage() {
               {membership ? <ClubRoleBadge role={membership.role} /> : null}
             </div>
             </div>
-            {promoLunchDays.length > 0 || memberApplyHref || execApplyHref ? (
+            {memberApplyHref || execApplyHref ? (
               <div className="club-hero__actions">
-                {promoLunchDays.length > 0 ? (
-                  <div className="club-promo-confirmation">
-                    <p>Confirmed for Club Promo Lunch</p>
-                    <div className="club-promo-days" role="list">
-                      {promoLunchDays.map((day) => (
-                        <span
-                          key={day}
-                          className="club-promo-days__tab"
-                          role="listitem"
-                        >
-                          {day}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-                {memberApplyHref || execApplyHref ? (
-                  <div className="club-hero__applications">
-                    {memberApplyHref ? (
-                      <SafeExternalLink
-                        className="button button--primary"
-                        href={memberApplyHref}
-                      >
-                        Member Apply
-                      </SafeExternalLink>
-                    ) : null}
-                    {execApplyHref ? (
-                      <SafeExternalLink
-                        className="button button--secondary"
-                        href={execApplyHref}
-                      >
-                        Exec Apply
-                      </SafeExternalLink>
-                    ) : null}
-                  </div>
-                ) : null}
+                <div className="club-hero__applications">
+                  {memberApplyHref ? (
+                    <SafeExternalLink
+                      className="button button--primary"
+                      href={memberApplyHref}
+                    >
+                      Member Apply
+                    </SafeExternalLink>
+                  ) : null}
+                  {execApplyHref ? (
+                    <SafeExternalLink
+                      className="button button--secondary"
+                      href={execApplyHref}
+                    >
+                      Exec Apply
+                    </SafeExternalLink>
+                  ) : null}
+                </div>
               </div>
             ) : null}
           </div>

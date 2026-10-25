@@ -37,7 +37,7 @@ const guidanceCounsellors = [
   },
 ];
 
-function BookingArrowIcon() {
+function LinkArrowIcon() {
   return (
     <svg
       className="counsellor-card__arrow"
@@ -78,7 +78,7 @@ function CounsellorCard({ counsellor }) {
           <span className="counsellor-card__name">{counsellor.name}</span>
           <span className="counsellor-card__range">{counsellor.range}</span>
         </span>
-        <BookingArrowIcon />
+        <LinkArrowIcon />
       </div>
       <span className="counsellor-card__email">{counsellor.email}</span>
     </a>
@@ -121,6 +121,7 @@ export function StudentResourcesPage() {
             rel="noopener noreferrer"
           >
             SAC Photos
+            <LinkArrowIcon />
           </a>
           <a
             className="quick-link"
@@ -129,6 +130,53 @@ export function StudentResourcesPage() {
             rel="noopener noreferrer"
           >
             SAC Agendas
+            <LinkArrowIcon />
+          </a>
+        </div>
+      </section>
+
+      <section className="panel" aria-labelledby="tutors-at-tables-heading">
+        <div className="tutors-heading">
+          <div>
+            <p className="eyebrow">Student Success Resources</p>
+            <div className="tutors-heading__title">
+              <img
+                className="tutors-heading__logo"
+                src="/images/tutors-at-tables/logo-tutors.png"
+                alt=""
+              />
+              <div>
+                <h2 id="tutors-at-tables-heading">Tutors at Tables</h2>
+                <p className="tutors-heading__schedule">
+                  Drop in sessions Tuesdays &amp; Thursdays during lunch · Room
+                  203
+                </p>
+              </div>
+            </div>
+          </div>
+          <a
+            className="tutors-heading__instagram"
+            href="https://www.instagram.com/tutors_at_tables/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Tutors at Tables on Instagram"
+          >
+            <span className="tutors-heading__instagram-icon" aria-hidden="true" />
+          </a>
+        </div>
+        <div className="quick-links">
+          <a className="quick-link" href="mailto:821448@pdsb.net">
+            Contact
+            <LinkArrowIcon />
+          </a>
+          <a
+            className="quick-link"
+            href="https://classroom.google.com/c/NjkwNDc5OTk3ODU4?cjc=vdkmi5y"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google Classroom
+            <LinkArrowIcon />
           </a>
         </div>
       </section>

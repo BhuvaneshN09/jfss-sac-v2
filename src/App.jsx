@@ -27,9 +27,6 @@ import { MyClubReapplicationsPage } from "./pages/MyClubReapplicationsPage";
 import { MySupervisorRequestsPage } from "./pages/MySupervisorRequestsPage";
 import { MyFundingRequestsPage } from "./pages/MyFundingRequestsPage";
 import { MyEventRequestsPage } from "./pages/MyEventRequestsPage";
-import { MyPromoLunchRequestsPage } from "./pages/MyPromoLunchRequestsPage";
-import { AdminPromoLunchPage } from "./pages/AdminPromoLunchPage";
-import { AdminPromoLunchDetailPage } from "./pages/AdminPromoLunchDetailPage";
 import { MyClubsPage } from "./pages/MyClubsPage";
 import { MyRequestsLayout } from "./components/layout/MyRequestsLayout";
 import { MyClubRequestsLayout } from "./components/layout/MyClubRequestsLayout";
@@ -202,10 +199,6 @@ export default function App() {
               />
               <Route path="funding" element={<MyFundingRequestsPage />} />
               <Route path="events" element={<MyEventRequestsPage />} />
-              <Route
-                path="promo-lunch"
-                element={<MyPromoLunchRequestsPage />}
-              />
             </Route>
 
             <Route
@@ -260,14 +253,6 @@ export default function App() {
                 <Route
                   path="events/:requestId"
                   element={<AdminClubEventDetailPage embedded />}
-                />
-                <Route
-                  path="promo-lunch"
-                  element={<AdminPromoLunchPage embedded />}
-                />
-                <Route
-                  path="promo-lunch/:requestId"
-                  element={<AdminPromoLunchDetailPage embedded />}
                 />
                 <Route
                   path="announcements"

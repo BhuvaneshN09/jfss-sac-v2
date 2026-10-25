@@ -5,7 +5,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "AT",
     color: "#1e2a4a",
-    photo: null,
+    photo: "/images/team/ArshaanThind.jpg",
   },
   {
     name: "Amrita Rajaram",
@@ -13,7 +13,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "AR",
     color: "#2c5eb0",
-    photo: null,
+    photo: "/images/team/AmritaRajaram.jpg",
   },
   {
     name: "Himaja Pothuneedi",
@@ -21,7 +21,7 @@ const execTeam = [
     grade: "Grade 11",
     initials: "HP",
     color: "#1a7a5e",
-    photo: null,
+    photo: "/images/team/HimajaPothuneedi.jpg",
   },
   {
     name: "Kirat Chopra",
@@ -29,7 +29,7 @@ const execTeam = [
     grade: "Grade 11",
     initials: "KC",
     color: "#6b3fa0",
-    photo: null,
+    photo: "/images/team/KiratChopra.jpg",
   },
   {
     name: "Cayden Janjua",
@@ -37,7 +37,15 @@ const execTeam = [
     grade: "Grade 11",
     initials: "CJ",
     color: "#2d6b8f",
-    photo: null,
+    photo: "/images/team/Cayden.jpg",
+  },
+  {
+    name: "Navya Shrivastava",
+    role: "Community Outreach",
+    grade: "Grade 12",
+    initials: "NS",
+    color: "#6b3fa0",
+    photo: "/images/team/NavyaShrivastava.jpg",
   },
   {
     name: "Eshaal Cheema",
@@ -45,7 +53,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "EC",
     color: "#b5651d",
-    photo: null,
+    photo: "/images/team/EshaalCheema.jpg",
   },
   {
     name: "Rasleen Kaur",
@@ -53,7 +61,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "RK",
     color: "#2f4b9e",
-    photo: null,
+    photo: "/images/team/RasleenKaur.jpg",
   },
   {
     name: "Harshad Mahajan",
@@ -61,7 +69,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "HM",
     color: "#5c2d82",
-    photo: null,
+    photo: "/images/team/HarshadMahajan.jpg",
   },
   {
     name: "Jason Chou",
@@ -69,63 +77,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "JC",
     color: "#1a7a5e",
-    photo: null,
-  },
-  {
-    name: "Navya Shrivastava",
-    role: "General Executive",
-    grade: "Grade 12",
-    initials: "NS",
-    color: "#6b3fa0",
-    photo: null,
-  },
-  {
-    name: "Eshal Khan",
-    role: "General Executive",
-    grade: "Grade 11",
-    initials: "EK",
-    color: "#2d6b8f",
-    photo: null,
-  },
-  {
-    name: "Yasmine Avery D'Elia",
-    role: "Atheletics Liaison",
-    grade: "Grade 12",
-    initials: "YD",
-    color: "#b5651d",
-    photo: null,
-  },
-  {
-    name: "Arhum Saleem",
-    role: "Arts Liaison",
-    grade: "Grade 11",
-    initials: "AS",
-    color: "#2f4b9e",
-    photo: null,
-  },
-  {
-    name: "Noah Lee",
-    role: "Community Outreach",
-    grade: "Grade 11",
-    initials: "NL",
-    color: "#5c2d82",
-    photo: null,
-  },
-  {
-    name: "Justin Deng",
-    role: "Photography Executive",
-    grade: "Grade 12",
-    initials: "JD",
-    color: "#6b3fa0",
-    photo: null,
-  },
-  {
-    name: "Awinah Shah",
-    role: "Photography Executive",
-    grade: "Grade 12",
-    initials: "AS",
-    color: "#2d6b8f",
-    photo: null,
+    photo: "/images/team/Jason.JPG",
   },
   {
     name: "Inaya Afzal",
@@ -133,7 +85,7 @@ const execTeam = [
     grade: "Grade 12",
     initials: "IA",
     color: "#b5651d",
-    photo: null,
+    photo: "/images/team/InayaAfzal.JPG",
   },
   {
     name: "Alissa Roy",
@@ -141,13 +93,53 @@ const execTeam = [
     grade: "Grade 10",
     initials: "AR",
     color: "#2f4b9e",
-    photo: null,
+    photo: "/images/team/AlissaRoy.jpg",
+  },
+  {
+    name: "Yasmine Avery D'Elia",
+    role: "Atheletics Liaison",
+    grade: "Grade 12",
+    initials: "YD",
+    color: "#b5651d",
+    photo: "/images/team/Yasmine.jpg",
+  },
+  {
+    name: "Arhum Saleem",
+    role: "Arts Liaison",
+    grade: "Grade 11",
+    initials: "AS",
+    color: "#2f4b9e",
+    photo: "/images/team/Arhum.JPG",
+  },
+  {
+    name: "Justin Deng",
+    role: "Photography Executive",
+    grade: "Grade 12",
+    initials: "JD",
+    color: "#6b3fa0",
+    photo: "/images/team/Justindeng.jpg",
+  },
+  {
+    name: "Awinah Shah",
+    role: "Photography Executive",
+    grade: "Grade 12",
+    initials: "AS",
+    color: "#2d6b8f",
+    photo: "/images/team/AwinahShah.jpg",
+  },
+  {
+    name: "Eshal Khan",
+    role: "General Executive",
+    grade: "Grade 11",
+    initials: "EK",
+    color: "#2d6b8f",
+    photo: "/images/team/EshalKhan.jpg",
   },
 ];
 
 const gradeRepresentatives = [
   {
-    name: "Person 1",
+    name: "Arhaan Hannan",
     role: "Grade Rep",
     grade: "Grade 9",
     initials: "P1",
@@ -155,7 +147,7 @@ const gradeRepresentatives = [
     photo: null,
   },
   {
-    name: "Person 2",
+    name: "Zoya Khan",
     role: "Grade Rep",
     grade: "Grade 10",
     initials: "P2",
@@ -163,7 +155,7 @@ const gradeRepresentatives = [
     photo: null,
   },
   {
-    name: "Person 3",
+    name: "Abdul Hamidoi",
     role: "Grade Rep",
     grade: "Grade 11",
     initials: "P3",
@@ -171,7 +163,7 @@ const gradeRepresentatives = [
     photo: null,
   },
   {
-    name: "Person 4",
+    name: "Musfirah Chowdry",
     role: "Grade Rep",
     grade: "Grade 12",
     initials: "P4",
@@ -188,6 +180,10 @@ function MemberCard({ member }) {
           src={member.photo}
           alt={member.name}
           className="member-avatar-photo"
+          width="160"
+          height="160"
+          decoding="async"
+          loading="lazy"
         />
       ) : (
         <div
@@ -231,11 +227,22 @@ export function OurTeamPage() {
         </p>
       </div>
 
-      <div className="member-grid">
+      <div className="member-grid member-grid--grade-reps">
         {gradeRepresentatives.map((member) => (
           <MemberCard key={member.name} member={member} />
         ))}
       </div>
+
+      <p className="grade-reps-elections">
+        <a
+          className="text-link"
+          href="https://jfsselections-fawn.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View elections page
+        </a>
+      </p>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   addCalendarDaysYmd,
+  getAnnouncementWeekRefreshYmd,
   diffCalendarDaysYmd,
   getAutomaticSchoolDay,
   getPostingUrgency,
@@ -12,6 +13,12 @@ import {
 } from "./torontoDate";
 
 describe("torontoDate", () => {
+  it("expires announcements on the Monday after their posting week", () => {
+    expect(getAnnouncementWeekRefreshYmd("2026-10-19")).toBe("2026-10-26");
+    expect(getAnnouncementWeekRefreshYmd("2026-10-21")).toBe("2026-10-26");
+    expect(getAnnouncementWeekRefreshYmd("2026-10-25")).toBe("2026-10-26");
+  });
+
   it("adds calendar days across month boundaries", () => {
     expect(addCalendarDaysYmd("2026-01-31", 1)).toBe("2026-02-01");
     expect(addCalendarDaysYmd("2026-02-28", 1)).toBe("2026-03-01");

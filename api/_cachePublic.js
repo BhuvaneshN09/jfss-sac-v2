@@ -1,5 +1,14 @@
 const DAY_SECONDS = 86400;
 const WEEK_SECONDS = 604800;
+const MONTH_SECONDS = 2592000;
+
+// Storage object paths embed a fresh UUID per upload (upsert is never used),
+// so a given URL always serves the same bytes.
+const STORAGE_OBJECT_CACHE = {
+  maxAge: WEEK_SECONDS,
+  sMaxAge: MONTH_SECONDS,
+  swr: MONTH_SECONDS,
+};
 
 const PUBLIC_READ_STORAGE_BUCKETS = new Set([
   "club-logos",
@@ -46,11 +55,7 @@ export function hasUserAccessToken(request) {
 
 function sharedPublicCacheControl(path) {
   if (path.startsWith("/storage/v1/object/public/")) {
-    return cacheControl({
-      maxAge: 3600,
-      sMaxAge: DAY_SECONDS,
-      swr: WEEK_SECONDS,
-    });
+    return cacheControl(STORAGE_OBJECT_CACHE);
   }
 
   if (restExact(path, "public_active_clubs")) {
@@ -60,12 +65,6 @@ function sharedPublicCacheControl(path) {
     return cacheControl({ maxAge: 0, sMaxAge: 300, swr: 600 });
   }
   if (restExact(path, "rpc/get_public_club_events")) {
-    return cacheControl({ maxAge: 0, sMaxAge: 120, swr: 300 });
-  }
-  if (restExact(path, "rpc/get_public_confirmed_promo_lunch_club_ids")) {
-    return cacheControl({ maxAge: 0, sMaxAge: 120, swr: 300 });
-  }
-  if (restExact(path, "rpc/get_public_club_promo_lunch_confirmation")) {
     return cacheControl({ maxAge: 0, sMaxAge: 120, swr: 300 });
   }
   if (restExact(path, "rpc/get_current_club_school_year")) {
@@ -81,11 +80,7 @@ function anonymousOnlyCacheControl(path) {
     const rest = path.slice(authenticatedPrefix.length);
     const bucket = rest.split("/")[0];
     if (PUBLIC_READ_STORAGE_BUCKETS.has(bucket) && rest.includes("/")) {
-      return cacheControl({
-        maxAge: 3600,
-        sMaxAge: DAY_SECONDS,
-        swr: WEEK_SECONDS,
-      });
+      return cacheControl(STORAGE_OBJECT_CACHE);
     }
     return null;
   }
@@ -136,8 +131,13 @@ export function withPublicCdnCache(response, cacheControlValue) {
   headers.set("CDN-Cache-Control", cacheControlValue);
   headers.set("Vercel-CDN-Cache-Control", cacheControlValue);
 
+  // Images never vary by Accept/Prefer; varying on them splits the CDN cache
+  // per browser Accept string and re-downloads the same bytes from Supabase.
+  const isImage = /^image\//i.test(headers.get("content-type") || "");
   const vary = headers.get("Vary");
-  if (!vary) {
+  if (isImage) {
+    headers.delete("Vary");
+  } else if (!vary) {
     headers.set("Vary", "Accept, Prefer");
   } else if (!/accept/i.test(vary)) {
     headers.set("Vary", `${vary}, Accept`);

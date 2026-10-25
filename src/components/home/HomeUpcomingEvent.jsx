@@ -9,6 +9,7 @@ import {
 } from "../../utils/torontoDate";
 
 const UPCOMING_WINDOW_DAYS = 15;
+const CLUB_LOGO_URL = "/images/upcoming-event-club-logo.webp";
 
 function getEventDateRange(event) {
   if (!event) return "";

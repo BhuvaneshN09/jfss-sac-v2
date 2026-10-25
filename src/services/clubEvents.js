@@ -4,6 +4,11 @@ import { assertFileMatchesDeclaredType } from "../utils/fileMagic";
 import { getClubEventDisplayNames } from "../utils/clubEventDisplay";
 import { resolveClubLogoUrl } from "../utils/clubMedia";
 import { prepareImageFileForUpload } from "../utils/imageUpload";
+import {
+  DISPLAY_PHOTO_MAX_EDGE,
+  downscaleImageForDisplay,
+  prepareImageFileForUpload,
+} from "../utils/imageUpload";
 import { toAuthenticatedStorageObjectUrl, toSameOriginSupabaseUrl } from "../utils/proxiedSupabaseUrl";
 
 export const CLUB_EVENT_PHOTOS_BUCKET = "club-event-photos";
@@ -117,7 +122,9 @@ export async function uploadClubEventPhoto({ userId, requestId, file }) {
 
   await assertFileMatchesDeclaredType(file, CLUB_EVENT_PHOTO_ALLOWED_TYPES);
 
-  const uploadFile = await prepareImageFileForUpload(file);
+  const uploadFile = await prepareImageFileForUpload(
+    await downscaleImageForDisplay(file, DISPLAY_PHOTO_MAX_EDGE),
+  );
   const path = buildClubEventPhotoPath({ userId, requestId, file: uploadFile });
   const { error } = await supabase.storage
     .from(CLUB_EVENT_PHOTOS_BUCKET)

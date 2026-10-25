@@ -74,14 +74,6 @@ const events = [
     photo: "/images/Senior-Sunrise.jpg",
   },
   {
-    id: "club-promo-lunch",
-    title: "Club Promo Lunch",
-    date: "October 6–7, 2025",
-    description:
-      "Thank you to everyone who came out for Club Promo Lunch. We're proud to see every club show off their creativity and spirit this year.",
-    photo: "/images/Club-Promo-Lunch.jpg",
-  },
-  {
     id: "terry-fox",
     title: "Terry Fox",
     date: "September 26, 2025",

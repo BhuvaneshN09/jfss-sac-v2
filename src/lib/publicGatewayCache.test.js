@@ -32,7 +32,7 @@ describe("publicGatewayCache", () => {
         status: 200,
         hasUserToken: true,
       }),
-    ).toMatch(/s-maxage=86400/);
+    ).toMatch(/s-maxage=2592000/);
 
     expect(
       getPublicCdnCacheControl({
@@ -108,7 +108,7 @@ describe("publicGatewayCache", () => {
         status: 200,
         hasUserToken: false,
       }),
-    ).toMatch(/s-maxage=86400/);
+    ).toMatch(/s-maxage=2592000/);
 
     expect(
       getPublicCdnCacheControl({
@@ -190,6 +190,18 @@ describe("publicGatewayCache", () => {
     expect(cached.headers.get("CDN-Cache-Control")).toMatch(/s-maxage=120/);
     expect(cached.headers.get("Vercel-CDN-Cache-Control")).toMatch(/s-maxage=120/);
     expect(cached.headers.get("set-cookie")).toBeNull();
+    expect(cached.headers.get("Vary")).toBe("Accept, Prefer");
     expect(await cached.text()).toBe("ok");
+  });
+
+  it("does not vary cached images by Accept", () => {
+    const cached = withPublicCdnCache(
+      new Response("img", {
+        headers: { "content-type": "image/png", vary: "Origin" },
+      }),
+      "public, max-age=604800, s-maxage=2592000, stale-while-revalidate=2592000",
+    );
+
+    expect(cached.headers.get("Vary")).toBeNull();
   });
 });

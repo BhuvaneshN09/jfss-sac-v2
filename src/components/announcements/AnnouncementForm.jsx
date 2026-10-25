@@ -178,8 +178,8 @@ export function AnnouncementForm({
         disabled={fieldsDisabled}
         hint={
           isPublishNow
-            ? "Today selected — once approved, this announcement publishes immediately."
-            : "Required to submit. Calendar date. Choose today to request publish now, or a future day to schedule."
+            ? "Today selected — once approved, this announcement publishes immediately and stays up through Sunday."
+            : "Required to submit. Choose today to request publish now, or a future day to schedule. Posted announcements stay up for that week and come down Monday at midnight."
         }
       />
 

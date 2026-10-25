@@ -1567,6 +1567,7 @@ summary:focus-visible {
 
 .club-card .meta-list {
   flex: 1 1 auto;
+  align-content: start;
   min-height: 0;
   margin: 0;
   gap: 0.4rem;
@@ -1574,6 +1575,7 @@ summary:focus-visible {
 }
 
 .club-card .meta-list > div {
+  align-content: start;
   min-width: 0;
 }
 
@@ -1756,19 +1758,117 @@ summary:focus-visible {
 }
 
 .quick-link {
+  position: relative;
   display: block;
-  padding: 1rem 1.1rem;
+  padding: 1rem 2.75rem 1rem 1.1rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--bg-muted);
   text-decoration: none;
   font-weight: 700;
   color: var(--text-strong);
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    color 0.18s ease;
 }
 
-.quick-link:hover {
+.quick-link .counsellor-card__arrow {
+  position: absolute;
+  top: 1rem;
+  right: 1.1rem;
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.quick-link:hover,
+.quick-link:focus-visible {
+  transform: translateY(-2px);
   border-color: var(--primary);
   background: var(--primary-soft);
+  box-shadow: 0 8px 18px rgba(15, 28, 46, 0.1);
+}
+
+.quick-link:hover .counsellor-card__arrow,
+.quick-link:focus-visible .counsellor-card__arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+  color: var(--primary);
+}
+
+.tutors-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.tutors-heading__title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.tutors-heading__title h2 {
+  margin-bottom: 0.2rem;
+}
+
+.tutors-heading__schedule {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.tutors-heading__logo {
+  width: 4.5rem;
+  height: 4.5rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.tutors-heading__instagram {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem;
+  border-radius: 999px;
+  color: var(--text-strong);
+  text-decoration: none;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.tutors-heading__instagram-icon {
+  width: 2.55rem;
+  height: 2.55rem;
+  background-color: currentColor;
+  -webkit-mask: url("/images/insta-svg.svg") center / contain no-repeat;
+  mask: url("/images/insta-svg.svg") center / contain no-repeat;
+  transition: transform 0.18s ease;
+}
+
+.tutors-heading__instagram:hover .tutors-heading__instagram-icon,
+.tutors-heading__instagram:focus-visible .tutors-heading__instagram-icon {
+  transform: scale(1.12);
+  background-color: transparent;
+  background-image: linear-gradient(135deg, #833ab4 0%, #c13584 42%, #e1306c 78%, #fd1d1d 100%);
+}
+
+.tutors-heading__instagram:hover,
+.tutors-heading__instagram:focus-visible {
+  transform: translateY(-2px);
+}
+
+.tutors-heading__instagram:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
 }
 
 .stat-value {
@@ -2181,54 +2281,6 @@ summary:focus-visible {
 .club-hero__owners {
   margin: 0.45rem 0 0;
   color: var(--text-muted);
-}
-
-.club-promo-confirmation {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.4rem;
-  margin: 0.35rem 0 0;
-}
-
-.club-promo-confirmation p {
-  margin: 0;
-  color: #4b9462;
-  font-weight: 700;
-  line-height: 1.35;
-  text-align: right;
-}
-
-.club-promo-days {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 0.15rem;
-  padding: 0.2rem;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--bg-elevated);
-}
-
-.club-promo-days__tab {
-  position: relative;
-  padding: 0.4rem 0.7rem 0.55rem;
-  color: #2f6fbf;
-  font-size: 0.85rem;
-  font-weight: 700;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
-.club-promo-days__tab::after {
-  content: "";
-  position: absolute;
-  left: 0.55rem;
-  right: 0.55rem;
-  bottom: 0.22rem;
-  height: 2px;
-  border-radius: 999px;
-  background: #2f6fbf;
 }
 
 .club-details-panel {
@@ -2937,12 +2989,26 @@ button.nav-link {
 .announcement-card__excerpt {
   margin: 0;
   color: var(--text);
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  line-clamp: 3;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.announcement-card__excerpt--expanded {
+  white-space: pre-wrap;
+}
+
+.announcement-card__more {
+  align-self: flex-start;
+  margin-top: 0.35rem;
+  padding: 0;
+  color: #2c5eb0;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.announcement-card__more:hover {
+  text-decoration: underline;
 }
 
 .announcement-card__club {
@@ -4008,6 +4074,14 @@ button.nav-link {
   margin-bottom: 56px;
 }
 
+.member-grid--grade-reps {
+  margin-bottom: 28px;
+}
+
+.grade-reps-elections {
+  margin: 0;
+}
+
 @media (max-width: 900px) {
   .member-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -4641,57 +4715,13 @@ button.nav-link {
   min-width: 0;
 }
 
-@media (min-width: 701px) {
-  .clubs-toolbar .form-field {
-    order: 1;
-  }
-
-  .clubs-toolbar .promo-lunch-filter {
-    order: 2;
-  }
-}
-
-.promo-lunch-filter {
-  min-height: 2.75rem;
-  padding: 0.7rem 1.1rem;
-  color: #4b9462;
-  background: transparent;
-  border: 1px solid #4b9462;
-  border-radius: 999px;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    background 0.15s ease,
-    color 0.15s ease;
-}
-
-.promo-lunch-filter:hover:not(:disabled) {
-  background: rgba(75, 148, 98, 0.12);
-}
-
-.promo-lunch-filter--active {
-  color: #fff;
-  background: #4b9462;
-}
-
-.promo-lunch-filter--active:hover:not(:disabled) {
-  background: rgba(75, 148, 98, 0.85);
-}
-
-.promo-lunch-filter:disabled {
-  cursor: not-allowed;
-  opacity: 0.65;
-}
-
 @media (max-width: 700px) {
   .clubs-toolbar {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .clubs-toolbar .form-field,
-  .promo-lunch-filter {
+  .clubs-toolbar .form-field {
     width: 100%;
   }
 }
