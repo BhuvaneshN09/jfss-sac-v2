@@ -9,8 +9,6 @@ import {
 } from "../../utils/torontoDate";
 
 const UPCOMING_WINDOW_DAYS = 15;
-const CLUB_LOGO_URL =
-  "/api/x/f/v1/object/authenticated/club-logos/club-profile-logos/d7c4a888-0487-4acc-a504-2ef9cb14e1c7/f35c5edd-a1bc-49da-9a24-e284a7e04105/a790ecba-1457-4280-8b44-cce8d8683965.png";
 
 function getEventDateRange(event) {
   if (!event) return "";
@@ -89,6 +87,7 @@ export function HomeUpcomingEvent() {
   const clubNames = event.club_names?.length
     ? event.club_names
     : [event.clubs?.name || event.club_name].filter(Boolean);
+  const clubLogoUrl = event.club_logo_url || event.clubs?.logo_url || null;
 
   return (
     <section
@@ -108,17 +107,17 @@ export function HomeUpcomingEvent() {
           <div className="home-upcoming__clubs" aria-label="Hosting clubs">
             {clubNames.map((name) => (
               <span className="home-upcoming__club" key={name}>
-                {name.toLowerCase().includes("sikh") ? (
-                  <span className="home-upcoming__club-logo home-upcoming__club-logo--letter">
-                    S
-                  </span>
-                ) : (
+                {name === event.club_name && clubLogoUrl ? (
                   <img
                     className="home-upcoming__club-logo"
-                    src={CLUB_LOGO_URL}
+                    src={clubLogoUrl}
                     alt=""
                     aria-hidden="true"
                   />
+                ) : (
+                  <span className="home-upcoming__club-logo home-upcoming__club-logo--letter">
+                    {name.slice(0, 1).toUpperCase()}
+                  </span>
                 )}
                 <span>{name}</span>
               </span>
